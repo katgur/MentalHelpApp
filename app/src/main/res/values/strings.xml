@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">MainScreenLayout</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Главный</string>
+    <string name="title_dashboard">Статистика</string>
+    <string name="title_chat">Чат</string>
+    <string name="title_history">История</string>
+    <string name="title_favorites">Избранное</string>
+    <string name="title_settings">Настройки</string>
+    <string name="title_logout">Выход</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_about">О приложении</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="self_care">Забота о себе</string>
+    <string name="hello">Привет</string>
+    <string name="packs">Программы</string>
+    <string name="techniques">Техники</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="send">Send</string>
+</resources>

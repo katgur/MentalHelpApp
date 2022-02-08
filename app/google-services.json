@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "993507180720",
+    "project_id": "cbt-database-c24da",
+    "storage_bucket": "cbt-database-c24da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993507180720:android:4dd9a2498fcf6317afbb75",
+        "android_client_info": {
+          "package_name": "com.example.fireasestoragetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993507180720-2oss92bjgb89cr25uh0dm65f4gjotsrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3I9_56kAQ0KwWqNc4YpNVb5h1JfYg4To"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993507180720-2oss92bjgb89cr25uh0dm65f4gjotsrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993507180720:android:e5df4389b429c065afbb75",
+        "android_client_info": {
+          "package_name": "com.example.mainscreenlayout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993507180720-2oss92bjgb89cr25uh0dm65f4gjotsrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3I9_56kAQ0KwWqNc4YpNVb5h1JfYg4To"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993507180720-2oss92bjgb89cr25uh0dm65f4gjotsrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
