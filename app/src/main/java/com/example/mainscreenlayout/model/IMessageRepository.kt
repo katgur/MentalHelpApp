@@ -6,5 +6,5 @@ interface IMessageRepository {
 
     var messages: MutableLiveData<Message>
 
-    fun addMessage(path: String)
+    fun addMessage(message: Message)
 }

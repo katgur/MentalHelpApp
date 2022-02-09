@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 
 class CommandAdapter(private var commands: List<String>) : RecyclerView.Adapter<CommandAdapter.CommandHolder>() {
+
+    var onItemClick: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -37,12 +39,15 @@ class CommandAdapter(private var commands: List<String>) : RecyclerView.Adapter<
         notifyDataSetChanged()
     }
 
-    class CommandHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CommandHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val text: TextView = itemView.findViewById(R.id.command_text)
+        private val button: Button = itemView.findViewById(R.id.command_text)
 
         fun bind(command: String) {
-            text.text = command
+            button.text = command
+            button.setOnClickListener {
+                onItemClick?.invoke(command)
+            }
         }
     }
 }
