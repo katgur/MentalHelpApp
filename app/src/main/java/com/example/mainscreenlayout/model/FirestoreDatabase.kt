@@ -39,16 +39,14 @@ class FirestoreDatabase(private val context: FragmentActivity?) {
         db.collection(parts[0])
             .get()
             .addOnSuccessListener { result ->
-                Log.d(TAG, "Got access to " + parts[0] + " collection")
-
                 val response = ArrayList<String>()
-                response.add(result.documents[0].id)
+                for (document in result) {
+                    response.add(document.get(parts[1]).toString())
+                }
                 data.postValue(response)
             }
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error getting documents.", exception)
-
-                data.postValue(listOf("kek", "lol", "cheburek"))
             }
 
         return data

@@ -18,8 +18,6 @@ class HomeFragment : Fragment() {
     private lateinit var homeScreenAdapter: HomeScreenAdapter
     private var viewManager = LinearLayoutManager(context)
 
-    private lateinit var exerciseAdapter: ExerciseAdapter
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,13 +36,21 @@ class HomeFragment : Fragment() {
             resources.getString(R.string.packs),
             resources.getString(R.string.techniques))
 
-        exerciseAdapter = ExerciseAdapter()
+        val recommendedAdapter = RoundItemAdapter()
+        val exerciseAdapter = RoundedRectangleItemAdapter()
+        val packsAdapter = RoundedRectangleItemAdapter()
 
-        homeScreenAdapter = HomeScreenAdapter(headings, exerciseAdapter)
+        homeScreenAdapter = HomeScreenAdapter(headings, listOf(recommendedAdapter, exerciseAdapter, packsAdapter))
         binding.recyclerHome.layoutManager = viewManager
         binding.recyclerHome.adapter = homeScreenAdapter
-        viewModel.observe(viewLifecycleOwner, {
+        viewModel.observeExercises(viewLifecycleOwner, {
             exerciseAdapter.addItems(it)
+        })
+        viewModel.observePacks(viewLifecycleOwner, {
+            packsAdapter.addItems(it)
+        })
+        viewModel.observeRecommended(viewLifecycleOwner, {
+            recommendedAdapter.addItems(it)
         })
     }
 }

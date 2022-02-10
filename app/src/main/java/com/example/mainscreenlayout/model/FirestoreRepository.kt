@@ -3,11 +3,15 @@ package com.example.mainscreenlayout.model
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 
-class FirestoreRepository(private val context: FragmentActivity?) {
+class FirestoreRepository(context: FragmentActivity?) {
 
     private val dao = FirestoreDatabase(context)
 
     fun getExercises(): LiveData<List<String>> {
-        return dao.get("exercises")
+        return dao.get("exercises/name")
+    }
+
+    fun getPacks(): LiveData<List<String>> {
+        return dao.get("packs/name")
     }
 }
