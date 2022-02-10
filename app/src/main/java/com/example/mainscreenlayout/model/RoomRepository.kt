@@ -6,6 +6,8 @@ import androidx.lifecycle.MediatorLiveData
 class RoomRepository {
 
     fun getRecommended(): LiveData<List<String>> {
-        return MediatorLiveData()
+        val res = MediatorLiveData<List<String>>()
+        res.postValue(listOf("mock1", "mock2", "mock3", "mock4", "mock5"))
+        return res
     }
 }
