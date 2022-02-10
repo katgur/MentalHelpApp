@@ -43,7 +43,7 @@ class ChatAdapter(private var messages: List<Message> = mutableListOf()) : Recyc
     override fun getItemViewType(position: Int): Int {
         val message: Message = messages[position]
 
-        return if (message.sentBy.name == "me") {
+        return if (message.sentBy == "me") {
             VIEW_TYPE_MESSAGE_SENT
         } else {
             VIEW_TYPE_MESSAGE_RECEIVED

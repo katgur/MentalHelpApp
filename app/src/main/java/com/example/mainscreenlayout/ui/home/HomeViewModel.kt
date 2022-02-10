@@ -1,13 +1,21 @@
 package com.example.mainscreenlayout.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.util.Log
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.*
+import com.example.mainscreenlayout.model.FirestoreRepository
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(context: FragmentActivity?) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private val firestoreRepository = FirestoreRepository(context)
+
+    var exercises = MediatorLiveData<List<String>>()
+
+    fun observe(owner: LifecycleOwner, observer: Observer<List<String>>) {
+        exercises.observe(owner, observer)
+
+        exercises.addSource(firestoreRepository.getExercises()) {
+            exercises.setValue(it)
+        }
     }
-    val text: LiveData<String> = _text
 }

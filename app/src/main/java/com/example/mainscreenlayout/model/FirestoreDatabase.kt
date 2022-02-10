@@ -1,25 +1,17 @@
 package com.example.mainscreenlayout.model
 
-import android.content.Context
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.mainscreenlayout.ui.chat.ChatFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import java.util.concurrent.ExecutorService
 
 class FirestoreDatabase(private val context: FragmentActivity?) {
 
     private val TAG: String = this.javaClass.simpleName
-
-    private var observers: ArrayList<IObserver> = ArrayList()
 
     init {
         val auth = Firebase.auth
@@ -37,11 +29,9 @@ class FirestoreDatabase(private val context: FragmentActivity?) {
         }
     }
 
-    fun subscribe(observer: IObserver) {
-        observers.add(observer)
-    }
+    fun get(query: String) : LiveData<List<String>> {
 
-    fun get(query: String) {
+        val data = MediatorLiveData<List<String>>()
         val db = Firebase.firestore
 
         val parts = query.split("/")
@@ -52,13 +42,15 @@ class FirestoreDatabase(private val context: FragmentActivity?) {
                 Log.d(TAG, "Got access to " + parts[0] + " collection")
 
                 val response = ArrayList<String>()
-                response.add(result.documents[0].get(parts[1]).toString())
-                for (observer in observers) {
-                    observer.onResponse(response)
-                }
+                response.add(result.documents[0].id)
+                data.postValue(response)
             }
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error getting documents.", exception)
+
+                data.postValue(listOf("kek", "lol", "cheburek"))
             }
+
+        return data
     }
 }

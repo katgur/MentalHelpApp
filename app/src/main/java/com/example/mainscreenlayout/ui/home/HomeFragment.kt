@@ -12,44 +12,39 @@ import com.example.mainscreenlayout.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var binding: FragmentHomeBinding
 
-    private lateinit var  homeScreenAdapter: HomeScreenAdapter
+    private lateinit var homeScreenAdapter: HomeScreenAdapter
     private var viewManager = LinearLayoutManager(context)
 
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var exerciseAdapter: ExerciseAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        return _binding!!.root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val headings: List<String> = listOf(resources.getString(R.string.self_care),
-        resources.getString(R.string.hello),
-        resources.getString(R.string.packs),
-        resources.getString(R.string.techniques))
-        homeScreenAdapter = HomeScreenAdapter(headings)
-
-        _binding!!.recyclerHome.layoutManager = viewManager
-        _binding!!.recyclerHome.adapter = homeScreenAdapter
-
         super.onViewCreated(view, savedInstanceState)
-    }
+        viewModel = ViewModelProvider(this, HomeViewModelFactory(activity)).get(HomeViewModel::class.java)
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        // set headers recycler view
+        val headings: List<String> = listOf(resources.getString(R.string.self_care),
+            resources.getString(R.string.hello),
+            resources.getString(R.string.packs),
+            resources.getString(R.string.techniques))
+
+        exerciseAdapter = ExerciseAdapter()
+
+        homeScreenAdapter = HomeScreenAdapter(headings, exerciseAdapter)
+        binding.recyclerHome.layoutManager = viewManager
+        binding.recyclerHome.adapter = homeScreenAdapter
+        viewModel.observe(viewLifecycleOwner, {
+            exerciseAdapter.addItems(it)
+        })
     }
 }
