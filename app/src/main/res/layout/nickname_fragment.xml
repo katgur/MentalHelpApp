@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NicknameFragment"
+    android:gravity="center">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:lines="3"
+            android:maxLines="3"
+            android:textAlignment="center"
+            android:text="Нет необходимости регистрироваться. Просто введи свой ник." />
+
+        <EditText
+            android:id="@+id/nick_text"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:autofillHints="Никнейм"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/nick_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ок" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>
