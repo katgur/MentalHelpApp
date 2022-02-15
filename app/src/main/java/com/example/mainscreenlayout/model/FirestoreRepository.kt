@@ -5,13 +5,11 @@ import androidx.lifecycle.LiveData
 
 class FirestoreRepository(context: FragmentActivity?) {
 
-    private val dao = FirestoreDatabase(context)
-
     fun getExercises(): LiveData<List<String>> {
-        return dao.get("exercises/name")
+        return FirestoreDatabase.get("exercises/name")
     }
 
     fun getPacks(): LiveData<List<String>> {
-        return dao.get("packs/name")
+        return FirestoreDatabase.get("packs/name")
     }
 }

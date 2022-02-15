@@ -1,27 +1,38 @@
 package com.example.mainscreenlayout.ui.chat
 
-import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.mainscreenlayout.model.*
+import kotlinx.coroutines.launch
 
-class ChatViewModel(private val exercise: Exercise, context: FragmentActivity?) : ViewModel() {
+class ChatViewModel(private val exercise: ExerciseRepository) : ViewModel() {
 
     var isBot: Boolean = true
 
-    private val firestoreRepository: FirestoreRepository = FirestoreRepository(context)
-
-    val messageRepository: IMessageRepository = MessageRepositoryImpl(MutableLiveData<Message>())
+    private val messageRepository: IMessageRepository = MessageRepositoryImpl()
     val commandRepository: CommandRepository = CommandRepository()
+
+    fun observeMessages(owner: LifecycleOwner, observer: Observer<Message>) {
+        messageRepository.observe(owner, observer)
+        messageRepository.addSource(exercise.steps) {
+            messageRepository.setValue(it)
+        }
+    }
+
+    fun observeCommands(owner: LifecycleOwner, observer: Observer<String>) {
+        commandRepository.observe(owner, observer)
+    }
 
     fun processCommand(command: String) {
         messageRepository.addMessage(Message(command, "me", 0))
         if (command == "Эффективность") {
-            //firestoreRepository.get(exercise.name + "/" + "efficiency")
+            viewModelScope.launch {
+                exercise.addEfficiencyStep()
+            }
         }
         else if (command == "Время освоения") {
-            //firestoreRepository.get(exercise.name + "/" + "duration")
+            viewModelScope.launch {
+                exercise.addDurationStep()
+            }
         }
     }
 

@@ -40,6 +40,16 @@ class HomeFragment : Fragment() {
         val exerciseAdapter = RoundedRectangleItemAdapter()
         val packsAdapter = RoundedRectangleItemAdapter()
 
+        recommendedAdapter.onItemClick = {
+            viewModel.onRecommendedClick(it)
+        }
+        exerciseAdapter.onItemClick = {
+            viewModel.onExerciseClick(it)
+        }
+        packsAdapter.onItemClick = {
+            viewModel.onPackClick(it)
+        }
+
         homeScreenAdapter = HomeScreenAdapter(headings, listOf(recommendedAdapter, exerciseAdapter, packsAdapter))
         binding.recyclerHome.layoutManager = viewManager
         binding.recyclerHome.adapter = homeScreenAdapter

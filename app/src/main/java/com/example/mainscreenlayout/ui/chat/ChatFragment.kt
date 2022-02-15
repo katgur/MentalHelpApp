@@ -45,14 +45,14 @@ class ChatFragment : Fragment() {
         // set chat recycler view
         binding.recyclerChat.layoutManager = chatViewManager
         binding.recyclerChat.adapter = chatAdapter
-        viewModel.messageRepository.messages.observe(viewLifecycleOwner, {
+        viewModel.observeMessages(viewLifecycleOwner, {
             chatAdapter.addItem(it)
         })
 
         // set command recycler view
         binding.recyclerChatCommand.layoutManager = commandChatViewManager
         binding.recyclerChatCommand.adapter = commandAdapter
-        viewModel.commandRepository.commands.observe(viewLifecycleOwner, {
+        viewModel.observeCommands(viewLifecycleOwner, {
             commandAdapter.addItem(it)
         })
 

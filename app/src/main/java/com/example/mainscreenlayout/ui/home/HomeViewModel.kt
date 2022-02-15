@@ -16,7 +16,6 @@ class HomeViewModel(context: FragmentActivity?) : ViewModel() {
 
     fun observeExercises(owner: LifecycleOwner, observer: Observer<List<String>>) {
         exercises.observe(owner, observer)
-
         exercises.addSource(firestoreRepository.getExercises()) {
             exercises.setValue(it)
         }
@@ -24,9 +23,8 @@ class HomeViewModel(context: FragmentActivity?) : ViewModel() {
 
     fun observePacks(owner: LifecycleOwner, observer: Observer<List<String>>) {
         packs.observe(owner, observer)
-
         packs.addSource(firestoreRepository.getPacks()) {
-            packs.setValue(it)
+            packs.value = it
         }
     }
 
@@ -36,5 +34,17 @@ class HomeViewModel(context: FragmentActivity?) : ViewModel() {
         recommended.addSource(roomRepository.getRecommended()) {
             recommended.setValue(it)
         }
+    }
+
+    fun onRecommendedClick(content: String) {
+        //todo
+    }
+
+    fun onExerciseClick(content: String) {
+        //todo
+    }
+
+    fun onPackClick(content: String) {
+        //todo
     }
 }

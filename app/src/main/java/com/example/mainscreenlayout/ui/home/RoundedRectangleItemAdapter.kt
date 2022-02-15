@@ -8,6 +8,8 @@ import com.example.mainscreenlayout.R
 
 class RoundedRectangleItemAdapter : HomeScreenItemAdapter() {
 
+    var onItemClick: ((String) -> Unit)? = null
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -19,7 +21,7 @@ class RoundedRectangleItemAdapter : HomeScreenItemAdapter() {
 
     override fun onBindViewHolder(holder: HomeScreenItemItemHolder, position: Int) {
         val exercise = list[position]
-        holder.bind(exercise)
+        holder.bind(exercise, onItemClick)
     }
 
     override fun getItemCount(): Int = list.size
@@ -29,8 +31,11 @@ class RoundedRectangleItemAdapter : HomeScreenItemAdapter() {
 
         private val text: TextView = itemView.findViewById(R.id.rounded_rect_text)
 
-        override fun bind(content: String) {
+        override fun bind(content: String, onItemClick: ((String) -> Unit)?) {
             text.text = content
+            itemView.setOnClickListener {
+                onItemClick?.invoke(content)
+            }
         }
     }
 }

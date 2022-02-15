@@ -28,7 +28,7 @@ open class HomeScreenItemAdapter(var list: List<String> = mutableListOf()) : Rec
 
     open class HomeScreenItemItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        open fun bind(content: String) {
+        open fun bind(content: String, onItemClick: ((String) -> Unit)?) {
             return
         }
     }
