@@ -3,13 +3,11 @@ package com.example.mainscreenlayout.model
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asFlow
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.flow.Flow
+
 
 object FirestoreDatabase {
 
@@ -44,6 +42,29 @@ object FirestoreDatabase {
                             response.add(response1)
                         }
                     }
+                }
+                data.postValue(response)
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting documents.", exception)
+            }
+
+        return data
+    }
+
+    fun get1(query: String) : LiveData<List<Question>> {
+        val data = MutableLiveData<List<Question>>()
+        val db = Firebase.firestore
+        val parts = query.split("/")
+
+        db.collection(parts[0])
+            .get()
+            .addOnSuccessListener { result ->
+                val response = ArrayList<Question>()
+                for (document in result) {
+                    val content = document.get("content").toString()
+                    val answers = document.get("answers") as ArrayList<String>
+                    response.add(Question(content, answers))
                 }
                 data.postValue(response)
             }

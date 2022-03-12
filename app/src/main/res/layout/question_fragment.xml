@@ -3,11 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuestionFragment">
+    tools:context=".ui.question.QuestionFragment">
 
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/question_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Тут должен быть вопрос" />
+
+        <RadioGroup
+            android:id="@+id/question_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Ответ 1" />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Ответ 2" />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Ответ 3" />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Ответ 4" />
+        </RadioGroup>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/question_skip_btn"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="Пропустить"
+                android:layout_margin="30dp" />
+            <Button
+                android:id="@+id/question_forward_btn"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="Далее"
+                android:layout_margin="30dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </FrameLayout>

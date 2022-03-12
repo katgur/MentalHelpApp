@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MainScreenLayout">
         <activity
-            android:name=".QuestionActivity"
+            android:name=".ui.question.QuestionActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

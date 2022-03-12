@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout
+package com.example.mainscreenlayout.ui.nick
 
 import androidx.lifecycle.ViewModel
 

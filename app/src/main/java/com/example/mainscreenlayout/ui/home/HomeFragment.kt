@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, HomeViewModelFactory(activity)).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
 
         // set headers recycler view
         val headings: List<String> = listOf(resources.getString(R.string.self_care),

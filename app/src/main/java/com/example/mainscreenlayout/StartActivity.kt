@@ -2,7 +2,7 @@ package com.example.mainscreenlayout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.commit
+import com.example.mainscreenlayout.ui.splash.SplashFragment
 
 class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

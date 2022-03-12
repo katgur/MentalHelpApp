@@ -5,9 +5,9 @@ import androidx.lifecycle.*
 import com.example.mainscreenlayout.model.FirestoreRepository
 import com.example.mainscreenlayout.model.RoomRepository
 
-class HomeViewModel(context: FragmentActivity?) : ViewModel() {
+class HomeViewModel : ViewModel() {
 
-    private val firestoreRepository = FirestoreRepository(context)
+    private val firestoreRepository = FirestoreRepository()
     private val roomRepository = RoomRepository()
 
     private val exercises = MediatorLiveData<List<String>>()

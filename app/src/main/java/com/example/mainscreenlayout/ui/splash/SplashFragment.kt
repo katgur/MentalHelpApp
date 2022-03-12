@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout
+package com.example.mainscreenlayout.ui.splash
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.mainscreenlayout.databinding.ChatFragmentBinding
 import com.example.mainscreenlayout.databinding.SplashFragmentBinding
-import android.R
 import android.content.Intent
-import androidx.fragment.app.commit
+import com.example.mainscreenlayout.ui.nick.NicknameFragment
+import com.example.mainscreenlayout.ui.question.QuestionActivity
+import com.example.mainscreenlayout.R
 
 
 class SplashFragment : Fragment() {
@@ -50,14 +50,14 @@ class SplashFragment : Fragment() {
 
     private fun loadNicknameFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(com.example.mainscreenlayout.R.id.fragment_container_view, NicknameFragment.newInstance())
+            .replace(R.id.fragment_container_view, NicknameFragment.newInstance())
             .disallowAddToBackStack()
             .commit()
     }
 
     private fun loadQuestionActivity() {
         val startQuestionActivityIntent = Intent(context, QuestionActivity::class.java)
-        startQuestionActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        //startQuestionActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(startQuestionActivityIntent)
     }
 }
