@@ -58,8 +58,8 @@ class ChatFragment : Fragment() {
         binding.recyclerChat.layoutManager = chatViewManager
         binding.recyclerChat.adapter = chatAdapter
         viewModel.observeMessages(viewLifecycleOwner, {
-            //chatAdapter.addItem(it)
-            chatAdapter.setItems(it)
+            chatAdapter.addItem(it)
+            //chatAdapter.setItems(it)
         })
 
         // set command recycler view

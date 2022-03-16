@@ -12,10 +12,10 @@ class ChatViewModel(private val exerciseRepository: ExerciseRepository) : ViewMo
         exerciseRepository.load()
     }
 
-    fun observeMessages(owner: LifecycleOwner, observer: Observer<ArrayList<Message>>) {
+    fun observeMessages(owner: LifecycleOwner, observer: Observer<Message>) {
         messageRepository.observe(owner, observer)
         messageRepository.addSource(exerciseRepository.steps) {
-            messageRepository.setValue(it)
+            messageRepository.addMessage(it)
         }
     }
 
