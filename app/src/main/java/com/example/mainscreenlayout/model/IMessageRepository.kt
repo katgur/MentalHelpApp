@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 
 interface IMessageRepository {
 
-    var messages: MediatorLiveData<Message>
+    var messages: MediatorLiveData<ArrayList<Message>>
 
     fun addMessage(message: Message)
 

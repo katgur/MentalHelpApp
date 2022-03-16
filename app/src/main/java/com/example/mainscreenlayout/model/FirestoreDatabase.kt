@@ -4,7 +4,11 @@ import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -21,29 +25,47 @@ object FirestoreDatabase {
         return this
     }
 
-    fun get(query: String) : LiveData<List<String>> {
-        val data = MutableLiveData<List<String>>()
+    fun alternativeGet(query : String) : Task<DocumentSnapshot> {
+        val parts = query.split("/")
+        val doc = Firebase.firestore.collection(parts[0]).document(parts[1])
+        return doc.get()
+    }
+
+    fun get(query: String) : LiveData<Any> {
+        val data = MutableLiveData<Any>()
         val db = Firebase.firestore
         val parts = query.split("/")
 
         db.collection(parts[0])
             .get()
             .addOnSuccessListener { result ->
-                val response = ArrayList<String>()
+                var response : Any? = null
                 if (parts.size == 2) {
+                    val response1 = ArrayList<String>()
                     for (document in result) {
-                        val response1 = document.get(parts[1]).toString()
-                        response.add(response1)
+                        response1.add(document.get(parts[1]).toString())
                     }
-                } else if (parts.size == 3) {
+                    response = response1
+                }
+                else if (parts.size == 3) {
                     for (document in result) {
                         if (document.get("id") == parts[1]) {
-                            val response1 = document.get(parts[2]).toString()
-                            response.add(response1)
+                            response = document.get(parts[2])
+                            break
                         }
                     }
                 }
-                data.postValue(response)
+                else if (parts.size == 4) {
+                    for (document in result) {
+                        if (document.get("id") == parts[1]) {
+                            response = document.get(parts[2])
+                            break
+                        }
+                    }
+                }
+                if (response != null) {
+                    data.postValue(response!!)
+                }
             }
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error getting documents.", exception)

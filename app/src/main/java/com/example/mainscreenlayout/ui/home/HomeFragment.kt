@@ -9,6 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.databinding.FragmentHomeBinding
+import com.example.mainscreenlayout.ui.chat.ChatFragment
+import com.example.mainscreenlayout.ui.nick.NicknameFragment
+import com.example.mainscreenlayout.utils.QueryUtils
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
 
@@ -44,7 +48,17 @@ class HomeFragment : Fragment() {
             viewModel.onRecommendedClick(it)
         }
         exerciseAdapter.onItemClick = {
-            viewModel.onExerciseClick(it)
+            var id = QueryUtils.nameToId[it]
+            if (id == null) {
+                //todo
+                id = "null"
+            }
+            val navView: BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
+            navView.selectedItemId = R.id.navigation_chat
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, ChatFragment.newInstance(id))
+                .commit()
         }
         packsAdapter.onItemClick = {
             viewModel.onPackClick(it)

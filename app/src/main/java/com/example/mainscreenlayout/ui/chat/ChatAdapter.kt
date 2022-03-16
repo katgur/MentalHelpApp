@@ -56,6 +56,11 @@ class ChatAdapter(private var messages: List<Message> = mutableListOf()) : Recyc
         notifyDataSetChanged()
     }
 
+    fun setItems(message: List<Message>) {
+        messages = message
+        notifyDataSetChanged()
+    }
+
     class ReceivedMessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @androidx.annotation.RequiresApi(Build.VERSION_CODES.O)

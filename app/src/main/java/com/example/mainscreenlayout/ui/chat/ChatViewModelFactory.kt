@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mainscreenlayout.model.ExerciseRepository
 
-class ChatViewModelFactory(private val context: FragmentActivity?): ViewModelProvider.Factory {
+class ChatViewModelFactory(val id : String): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(ChatViewModel::class.java)) {
-            ChatViewModel(ExerciseRepository("thought_journal")) as T
+            ChatViewModel(ExerciseRepository(id)) as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")
         }

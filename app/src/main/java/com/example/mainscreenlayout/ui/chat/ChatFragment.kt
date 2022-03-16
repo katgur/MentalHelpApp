@@ -15,11 +15,18 @@ import com.example.mainscreenlayout.CommandAdapter
 import com.example.mainscreenlayout.databinding.ChatFragmentBinding
 import com.example.mainscreenlayout.model.Message
 import com.example.mainscreenlayout.utils.QueryUtils
+import java.lang.IllegalStateException
 
 class ChatFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ChatFragment()
+        fun newInstance(id : String) : ChatFragment {
+            val instance = ChatFragment()
+            val args = Bundle()
+            args.putString("id", id)
+            instance.arguments = args
+            return instance
+        }
     }
 
     private var chatViewManager = LinearLayoutManager(context)
@@ -28,7 +35,7 @@ class ChatFragment : Fragment() {
     private lateinit var viewModel: ChatViewModel
     private lateinit var binding: ChatFragmentBinding
 
-    private val chatAdapter: ChatAdapter = ChatAdapter(listOf(), )
+    private val chatAdapter: ChatAdapter = ChatAdapter(listOf())
     private val commandAdapter: CommandAdapter = CommandAdapter(listOf())
 
     override fun onCreateView(
@@ -40,20 +47,26 @@ class ChatFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, ChatViewModelFactory(activity)).get(ChatViewModel::class.java)
-
+        //todo catch illegal state exc in require argumanets
+        try {
+            val k = requireArguments().getString("id", "default")
+            viewModel = ViewModelProvider(this, ChatViewModelFactory(k)).get(ChatViewModel::class.java)
+        } catch (e : IllegalStateException) {
+            viewModel = ViewModelProvider(this, ChatViewModelFactory("mock")).get(ChatViewModel::class.java)
+        }
         // set chat recycler view
         binding.recyclerChat.layoutManager = chatViewManager
         binding.recyclerChat.adapter = chatAdapter
         viewModel.observeMessages(viewLifecycleOwner, {
-            chatAdapter.addItem(it)
+            //chatAdapter.addItem(it)
+            chatAdapter.setItems(it)
         })
 
         // set command recycler view
         binding.recyclerChatCommand.layoutManager = commandChatViewManager
         binding.recyclerChatCommand.adapter = commandAdapter
         viewModel.observeCommands(viewLifecycleOwner, {
-            commandAdapter.addItem(it)
+            commandAdapter.setItems(it)
         })
 
         // set command button on click listener

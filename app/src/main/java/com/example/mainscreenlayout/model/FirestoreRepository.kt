@@ -7,11 +7,11 @@ class FirestoreRepository {
 
     val questions = ArrayList<Question>()
 
-    fun getExercises(): LiveData<List<String>> {
+    fun getExercises(): LiveData<Any> {
         return FirestoreDatabase.get("exercises/name")
     }
 
-    fun getPacks(): LiveData<List<String>> {
+    fun getPacks(): LiveData<Any> {
         return FirestoreDatabase.get("packs/name")
     }
 

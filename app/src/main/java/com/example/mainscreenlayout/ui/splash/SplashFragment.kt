@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mainscreenlayout.databinding.SplashFragmentBinding
 import android.content.Intent
+import com.example.mainscreenlayout.MainActivity
 import com.example.mainscreenlayout.ui.nick.NicknameFragment
 import com.example.mainscreenlayout.ui.question.QuestionActivity
 import com.example.mainscreenlayout.R
@@ -42,8 +43,9 @@ class SplashFragment : Fragment() {
             }
         } else {
             binding.splashText.setText("Привет, $name!")
-            binding.root.setOnClickListener{
-                loadQuestionActivity()
+            binding.root.setOnClickListener {
+                //loadQuestionActivity()
+                loadMainActivity()
             }
         }
     }
@@ -57,6 +59,12 @@ class SplashFragment : Fragment() {
 
     private fun loadQuestionActivity() {
         val startQuestionActivityIntent = Intent(context, QuestionActivity::class.java)
+        //startQuestionActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(startQuestionActivityIntent)
+    }
+
+    private fun loadMainActivity() {
+        val startQuestionActivityIntent = Intent(context, MainActivity::class.java)
         //startQuestionActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(startQuestionActivityIntent)
     }

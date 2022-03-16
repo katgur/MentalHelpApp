@@ -6,21 +6,25 @@ import androidx.lifecycle.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class MessageRepositoryImpl(override var messages: MediatorLiveData<Message> = MediatorLiveData()) : IMessageRepository {
+class MessageRepositoryImpl(private val messages: MediatorLiveData<ArrayList<Message>> = MediatorLiveData()) {
 
-    override fun addMessage(message: Message) {
-        messages.postValue(message)
+    init {
+        messages.value = ArrayList()
     }
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<Message>) {
+    fun addMessage(message: Message) {
+        messages.value?.add(message)
+    }
+
+    fun observe(owner: LifecycleOwner, observer: Observer<ArrayList<Message>>) {
         messages.observe(owner, observer)
     }
 
-    override fun addSource(liveData: LiveData<Message>, observer: Observer<Message>) {
+    fun addSource(liveData: LiveData<Message>, observer: Observer<ArrayList<Message>>) {
         messages.addSource(liveData, observer)
     }
 
-    override fun setValue(value: Message) {
+    fun setValue(value: Message) {
         messages.value = value
     }
 }

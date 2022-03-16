@@ -28,8 +28,8 @@ class CommandAdapter(private var commands: List<String>) : RecyclerView.Adapter<
     override fun getItemCount(): Int = commands.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItem(command: String) {
-        commands += command
+    fun setItems(commands: List<String>) {
+        this.commands = commands
         notifyDataSetChanged()
     }
 

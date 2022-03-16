@@ -1,14 +1,16 @@
 package com.example.mainscreenlayout.model
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 
 class CommandRepository {
 
-    var commands: MutableLiveData<String> = MutableLiveData<String>("Эффективность")
+    private val commands = MediatorLiveData<List<String>>()
 
-    fun observe(owner: LifecycleOwner, observer: Observer<String>) {
+    fun setCommands(commands : List<String>) {
+        this.commands.postValue(commands)
+    }
+
+    fun observe(owner: LifecycleOwner, observer: Observer<List<String>>) {
         commands.observe(owner, observer)
     }
 }

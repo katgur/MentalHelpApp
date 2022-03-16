@@ -1,43 +1,40 @@
 package com.example.mainscreenlayout.ui.chat
 
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import com.example.mainscreenlayout.model.*
-import kotlinx.coroutines.launch
 
-class ChatViewModel(private val exercise: ExerciseRepository) : ViewModel() {
+class ChatViewModel(private val exerciseRepository: ExerciseRepository) : ViewModel() {
 
-    var isBot: Boolean = true
+    private val messageRepository = MessageRepositoryImpl()
 
-    private val messageRepository: IMessageRepository = MessageRepositoryImpl()
-    val commandRepository: CommandRepository = CommandRepository()
+    init {
+        exerciseRepository.load()
+    }
 
-    fun observeMessages(owner: LifecycleOwner, observer: Observer<Message>) {
+    fun observeMessages(owner: LifecycleOwner, observer: Observer<ArrayList<Message>>) {
         messageRepository.observe(owner, observer)
-        messageRepository.addSource(exercise.steps) {
+        messageRepository.addSource(exerciseRepository.steps) {
             messageRepository.setValue(it)
         }
     }
 
-    fun observeCommands(owner: LifecycleOwner, observer: Observer<String>) {
-        commandRepository.observe(owner, observer)
+    fun observeCommands(owner: LifecycleOwner, observer: Observer<List<String>>) {
+        exerciseRepository.observeCommands(owner, observer)
     }
 
     fun processCommand(command: String) {
         messageRepository.addMessage(Message(command, "me", 0))
-        if (command == "Эффективность") {
-            viewModelScope.launch {
-                exercise.addEfficiencyStep()
-            }
-        }
-        else if (command == "Время освоения") {
-            viewModelScope.launch {
-                exercise.addDurationStep()
-            }
+        when (command) {
+            "Эффективность" -> exerciseRepository.addEfficiencyStep()
+            "Время" -> exerciseRepository.addDurationStep()
+            "Далее" -> exerciseRepository.addNextStep()
         }
     }
 
     fun processMessage(message: Message) {
         messageRepository.addMessage(message)
-        // todo save into table
+        exerciseRepository.addToRecord(message.content)
+        exerciseRepository.refreshCommands()
     }
 }

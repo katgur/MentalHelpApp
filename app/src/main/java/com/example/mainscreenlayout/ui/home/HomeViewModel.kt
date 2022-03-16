@@ -1,9 +1,11 @@
 package com.example.mainscreenlayout.ui.home
 
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
+import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.model.FirestoreRepository
 import com.example.mainscreenlayout.model.RoomRepository
+import com.example.mainscreenlayout.ui.nick.NicknameFragment
+import com.example.mainscreenlayout.utils.QueryUtils
 
 class HomeViewModel : ViewModel() {
 
@@ -17,14 +19,16 @@ class HomeViewModel : ViewModel() {
     fun observeExercises(owner: LifecycleOwner, observer: Observer<List<String>>) {
         exercises.observe(owner, observer)
         exercises.addSource(firestoreRepository.getExercises()) {
-            exercises.setValue(it)
+            val response = it as List<String>
+            exercises.setValue(response)
         }
     }
 
     fun observePacks(owner: LifecycleOwner, observer: Observer<List<String>>) {
         packs.observe(owner, observer)
         packs.addSource(firestoreRepository.getPacks()) {
-            packs.value = it
+            val response = it as List<String>
+            packs.setValue(response)
         }
     }
 
@@ -40,9 +44,14 @@ class HomeViewModel : ViewModel() {
         //todo
     }
 
-    fun onExerciseClick(content: String) {
-        //todo
-    }
+//    fun onExerciseClick(content: String) {
+//        //todo
+//        val id = QueryUtils.nameToId[content]
+//        requireActivity().supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container_view, NicknameFragment.newInstance())
+//            .disallowAddToBackStack()
+//            .commit()
+//    }
 
     fun onPackClick(content: String) {
         //todo
