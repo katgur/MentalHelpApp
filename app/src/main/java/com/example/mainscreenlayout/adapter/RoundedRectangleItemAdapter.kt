@@ -1,22 +1,23 @@
-package com.example.mainscreenlayout.ui.home
+package com.example.mainscreenlayout.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.mainscreenlayout.R
+import com.example.mainscreenlayout.domain.MarkableItem
 
 class RoundedRectangleItemAdapter : HomeScreenItemAdapter() {
 
-    var onItemClick: ((String) -> Unit)? = null
+    var onItemClick: ((MarkableItem) -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RoundedRectangleItemAdapter.RoundedRectangleItemHolder {
+    ): RoundedRectangleItemHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_rounded_rectangle_item, parent, false)
-        return RoundedRectangleItemAdapter.RoundedRectangleItemHolder(itemView)
+        return RoundedRectangleItemHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: HomeScreenItemItemHolder, position: Int) {
@@ -27,12 +28,12 @@ class RoundedRectangleItemAdapter : HomeScreenItemAdapter() {
     override fun getItemCount(): Int = list.size
 
 
-    class RoundedRectangleItemHolder(itemView: View) : HomeScreenItemAdapter.HomeScreenItemItemHolder(itemView) {
+    class RoundedRectangleItemHolder(itemView: View) : HomeScreenItemItemHolder(itemView) {
 
         private val text: TextView = itemView.findViewById(R.id.rounded_rect_text)
 
-        override fun bind(content: String, onItemClick: ((String) -> Unit)?) {
-            text.text = content
+        override fun bind(content: MarkableItem, onItemClick: ((MarkableItem) -> Unit)?) {
+            text.text = content.name
             itemView.setOnClickListener {
                 onItemClick?.invoke(content)
             }

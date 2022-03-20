@@ -1,5 +1,6 @@
 package com.example.mainscreenlayout.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mainscreenlayout.R
+import com.example.mainscreenlayout.adapter.HomeScreenAdapter
+import com.example.mainscreenlayout.adapter.RoundItemAdapter
+import com.example.mainscreenlayout.adapter.RoundedRectangleItemAdapter
 import com.example.mainscreenlayout.databinding.FragmentHomeBinding
+import com.example.mainscreenlayout.ui.exercise.ExerciseListActivity
 import com.example.mainscreenlayout.ui.chat.ChatFragment
-import com.example.mainscreenlayout.ui.nick.NicknameFragment
-import com.example.mainscreenlayout.utils.QueryUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
@@ -21,6 +24,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeScreenAdapter: HomeScreenAdapter
     private var viewManager = LinearLayoutManager(context)
+
+    private var argId : String = "default"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,30 +50,36 @@ class HomeFragment : Fragment() {
         val packsAdapter = RoundedRectangleItemAdapter()
 
         recommendedAdapter.onItemClick = {
-            viewModel.onRecommendedClick(it)
+            it.name?.let { it1 -> viewModel.onRecommendedClick(it1) }
         }
+
         exerciseAdapter.onItemClick = {
-            var id = QueryUtils.nameToId[it]
-            if (id == null) {
-                //todo
-                id = "null"
-            }
             val navView: BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
             navView.selectedItemId = R.id.navigation_chat
 
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, ChatFragment.newInstance(id))
-                .commit()
+            it.id?.let { it1 -> ChatFragment.newInstance(it1) }?.let { it2 ->
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment,
+                        it2
+                    )
+                    .commit()
+            }
         }
         packsAdapter.onItemClick = {
-            viewModel.onPackClick(it)
+            it.name?.let { it1 -> viewModel.onPackClick(it1) }
         }
 
         homeScreenAdapter = HomeScreenAdapter(headings, listOf(recommendedAdapter, exerciseAdapter, packsAdapter))
+        homeScreenAdapter.onAllButtonClick = {
+            val startExerciseActivityIntent = Intent(requireContext(), ExerciseListActivity::class.java)
+            startExerciseActivityIntent.putExtra("exercises", viewModel.getExercises(requireContext()))
+            startActivity(startExerciseActivityIntent)
+        }
+
         binding.recyclerHome.layoutManager = viewManager
         binding.recyclerHome.adapter = homeScreenAdapter
         viewModel.observeExercises(viewLifecycleOwner, {
-            exerciseAdapter.addItems(it)
+            exerciseAdapter.addItems(it.subList(0, 5))
         })
         viewModel.observePacks(viewLifecycleOwner, {
             packsAdapter.addItems(it)

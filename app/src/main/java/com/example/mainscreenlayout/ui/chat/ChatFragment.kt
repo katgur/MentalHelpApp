@@ -1,20 +1,20 @@
 package com.example.mainscreenlayout.ui.chat
 
+import android.os.Build
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mainscreenlayout.CommandAdapter
+import com.example.mainscreenlayout.adapter.CommandAdapter
+import com.example.mainscreenlayout.adapter.ChatAdapter
 import com.example.mainscreenlayout.databinding.ChatFragmentBinding
-import com.example.mainscreenlayout.model.Message
-import com.example.mainscreenlayout.utils.QueryUtils
+import com.example.mainscreenlayout.domain.Message
+import com.example.mainscreenlayout.ui.history.HistoryViewModel
 import java.lang.IllegalStateException
 
 class ChatFragment : Fragment() {
@@ -45,14 +45,15 @@ class ChatFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //todo catch illegal state exc in require argumanets
         try {
             val k = requireArguments().getString("id", "default")
-            viewModel = ViewModelProvider(this, ChatViewModelFactory(k)).get(ChatViewModel::class.java)
+            viewModel = ViewModelProvider(this, ChatViewModelFactory(k, requireActivity().application)).get(ChatViewModel::class.java)
         } catch (e : IllegalStateException) {
-            viewModel = ViewModelProvider(this, ChatViewModelFactory("mock")).get(ChatViewModel::class.java)
+            viewModel = ViewModelProvider(this, ChatViewModelFactory("mock", requireActivity().application)).get(ChatViewModel::class.java)
         }
         // set chat recycler view
         binding.recyclerChat.layoutManager = chatViewManager

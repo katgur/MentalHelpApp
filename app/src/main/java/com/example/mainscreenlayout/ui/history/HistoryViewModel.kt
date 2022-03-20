@@ -1,13 +1,14 @@
 package com.example.mainscreenlayout.ui.history
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.example.mainscreenlayout.domain.HistoryItem
+import com.example.mainscreenlayout.model.PersonalDatabase
 
 class HistoryViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    fun getHistory(context : Context) : List<HistoryItem> {
+        // todo create repository
+        return PersonalDatabase.getInstance(context).dao().getAllHistory()
     }
-    val text: LiveData<String> = _text
 }

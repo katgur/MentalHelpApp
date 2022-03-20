@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout.ui.chat
+package com.example.mainscreenlayout.adapter
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.model.Message
+import com.example.mainscreenlayout.domain.Message
 
 const val VIEW_TYPE_MESSAGE_SENT = 1
 const val VIEW_TYPE_MESSAGE_RECEIVED = 2

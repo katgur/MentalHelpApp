@@ -1,17 +1,19 @@
 package com.example.mainscreenlayout.ui.question
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.annotation.RequiresApi
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.mainscreenlayout.MainActivity
+import com.example.mainscreenlayout.ui.MainActivity
 import com.example.mainscreenlayout.databinding.QuestionFragmentBinding
-import com.example.mainscreenlayout.model.Question
+import com.example.mainscreenlayout.domain.Question
 
 class QuestionFragment : Fragment() {
 
@@ -28,28 +30,33 @@ class QuestionFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = QuestionFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val question = arguments?.get("question") as Question
         bind(question)
 
         binding.questionSkipBtn.setOnClickListener {
+            viewModel.saveAnswers(requireActivity())
             loadMainActivity()
         }
 
         binding.questionForwardBtn.setOnClickListener {
             if (!viewModel.nextQuestion()) {
+                viewModel.saveAnswers(requireActivity())
                 loadMainActivity()
             }
+        }
+
+        binding.questionRg.setOnCheckedChangeListener { radioGroup, id ->
+            val radioButton = radioGroup.findViewById<RadioButton>(id)
+            viewModel.addAnswer(radioButton.text as String)
         }
     }
 
@@ -67,7 +74,6 @@ class QuestionFragment : Fragment() {
 
     private fun loadMainActivity() {
         val startMainActivityIntent = Intent(context, MainActivity::class.java)
-        //startQuestionActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(startMainActivityIntent)
     }
 }

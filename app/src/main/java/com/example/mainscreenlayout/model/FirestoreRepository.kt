@@ -1,7 +1,7 @@
 package com.example.mainscreenlayout.model
 
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
+import com.example.mainscreenlayout.domain.Question
 
 class FirestoreRepository {
 

@@ -1,7 +1,8 @@
-package com.example.mainscreenlayout
+package com.example.mainscreenlayout.ui.splash
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.ui.splash.SplashFragment
 
 class StartActivity : AppCompatActivity() {

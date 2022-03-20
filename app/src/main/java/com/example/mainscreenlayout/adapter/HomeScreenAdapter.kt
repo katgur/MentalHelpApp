@@ -1,8 +1,9 @@
-package com.example.mainscreenlayout.ui.home
+package com.example.mainscreenlayout.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,8 @@ const val VIEW_TYPE_PACK = 3
 class HomeScreenAdapter(private val headings: List<String>, private val childAdapters: List<HomeScreenItemAdapter>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     //private val viewPool = RecyclerView.RecycledViewPool()
+
+    var onAllButtonClick : (() -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -58,19 +61,28 @@ class HomeScreenAdapter(private val headings: List<String>, private val childAda
             else -> VIEW_TYPE_HELLO
         }
 
-    class RoundedRectangleItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RoundedRectangleItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val text: TextView = itemView.findViewById(R.id.home_item_text)
         private val recycler: RecyclerView = itemView.findViewById(R.id.rect_home_item_recycler)
+        private val all = itemView.findViewById<Button>(R.id.home_item_all)
 
         fun bind(heading: String, adapter: HomeScreenItemAdapter) {
             text.text = heading
             recycler.layoutManager = LinearLayoutManager(recycler.context, LinearLayoutManager.HORIZONTAL, false)
             recycler.adapter = adapter
+            if (heading != "Техники") {
+                all.text = ""
+            }
+            else {
+                all.setOnClickListener {
+                    onAllButtonClick?.invoke()
+                }
+            }
         }
     }
 
-    class RoundItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RoundItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val text: TextView = itemView.findViewById(R.id.home_item_text)
         private val recycler: RecyclerView = itemView.findViewById(R.id.round_home_item_recycler)
@@ -82,7 +94,7 @@ class HomeScreenAdapter(private val headings: List<String>, private val childAda
         }
     }
 
-    class SingleLayoutItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class SingleLayoutItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val text: TextView = itemView.findViewById(R.id.home_item_text)
 

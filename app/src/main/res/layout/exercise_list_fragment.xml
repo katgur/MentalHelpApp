@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.favorites.FavoritesFragment"
-    android:background="@color/white">
+    tools:context=".ui.exercise.ExerciseListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favourites_recycler"
+        android:id="@+id/exercise_list_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

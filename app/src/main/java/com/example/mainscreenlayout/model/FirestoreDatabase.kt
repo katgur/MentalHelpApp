@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.mainscreenlayout.domain.MarkableItem
+import com.example.mainscreenlayout.domain.Question
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -41,9 +41,10 @@ object FirestoreDatabase {
             .addOnSuccessListener { result ->
                 var response : Any? = null
                 if (parts.size == 2) {
-                    val response1 = ArrayList<String>()
+                    val response1 = ArrayList<MarkableItem>()
                     for (document in result) {
-                        response1.add(document.get(parts[1]).toString())
+                        val item = MarkableItem(document.id, document.get(parts[1]).toString(), false)
+                        response1.add(item)
                     }
                     response = response1
                 }

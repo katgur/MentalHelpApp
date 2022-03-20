@@ -1,20 +1,17 @@
-package com.example.mainscreenlayout
+package com.example.mainscreenlayout.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.widget.EditText
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.mainscreenlayout.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setBottomNavigationBar() {
-
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)

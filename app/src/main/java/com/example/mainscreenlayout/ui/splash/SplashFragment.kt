@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mainscreenlayout.databinding.SplashFragmentBinding
 import android.content.Intent
-import com.example.mainscreenlayout.MainActivity
+import com.example.mainscreenlayout.ui.MainActivity
 import com.example.mainscreenlayout.ui.nick.NicknameFragment
 import com.example.mainscreenlayout.ui.question.QuestionActivity
 import com.example.mainscreenlayout.R

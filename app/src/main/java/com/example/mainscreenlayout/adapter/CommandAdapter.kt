@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout
+package com.example.mainscreenlayout.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mainscreenlayout.R
 
 class CommandAdapter(private var commands: List<String>) : RecyclerView.Adapter<CommandAdapter.CommandHolder>() {
 

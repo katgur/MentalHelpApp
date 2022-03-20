@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.record.RecordFragment">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/record_desc_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Тут должно быть описание" />
+
+        <Button
+            android:id="@+id/record_save_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Сохранить"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/record_delete_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Удалить"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/record_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</FrameLayout>
