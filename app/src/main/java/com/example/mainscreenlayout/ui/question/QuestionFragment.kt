@@ -43,7 +43,6 @@ class QuestionFragment : Fragment() {
         bind(question)
 
         binding.questionSkipBtn.setOnClickListener {
-            viewModel.saveAnswers(requireActivity())
             loadMainActivity()
         }
 
@@ -56,7 +55,7 @@ class QuestionFragment : Fragment() {
 
         binding.questionRg.setOnCheckedChangeListener { radioGroup, id ->
             val radioButton = radioGroup.findViewById<RadioButton>(id)
-            viewModel.addAnswer(radioButton.text as String)
+            viewModel.addAnswer(radioButton.text as String, id)
         }
     }
 

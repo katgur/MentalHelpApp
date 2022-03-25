@@ -1,14 +1,20 @@
 package com.example.mainscreenlayout.adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.domain.HistoryItem
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 class HistoryAdapter(private val history : List<HistoryItem>) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     var onItemClick: ((HistoryItem) -> Unit)? = null
@@ -35,7 +41,8 @@ class HistoryAdapter(private val history : List<HistoryItem>) : RecyclerView.Ada
         fun bind(item: HistoryItem) {
             image.setImageResource(R.drawable.ic_launcher_background)
             description.text = item.description
-            date.text = item.date
+            date.text = LocalDateTime.ofEpochSecond(item.date, 0, ZoneOffset.UTC).format(
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME)
             itemView.setOnClickListener {
                 onItemClick?.invoke(item)
             }

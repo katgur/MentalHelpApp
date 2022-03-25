@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
 
         // set headers recycler view
-        val headings: List<String> = listOf(resources.getString(R.string.self_care),
+        val headings: List<String> = listOf(resources.getString(R.string.recommended),
             resources.getString(R.string.hello),
             resources.getString(R.string.packs),
             resources.getString(R.string.techniques))
@@ -86,6 +86,6 @@ class HomeFragment : Fragment() {
         })
         viewModel.observeRecommended(viewLifecycleOwner, {
             recommendedAdapter.addItems(it)
-        })
+        }, requireContext())
     }
 }

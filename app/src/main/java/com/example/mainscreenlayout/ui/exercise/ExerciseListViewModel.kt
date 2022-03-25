@@ -9,7 +9,7 @@ class ExerciseListViewModel : ViewModel() {
 
     fun markExercise(context : Context, id : String) {
         //todo map id to name
-        val markedItem = MarkedItem(0, id, "Вам понравилось упражнение $id")
+        val markedItem = MarkedItem(id, "Вам понравилось упражнение $id")
         PersonalDatabase.getInstance(context).dao().addFavourite(markedItem)
     }
 }

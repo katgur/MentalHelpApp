@@ -17,23 +17,27 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 class QuestionViewModel : ViewModel() {
 
     private val repository = FirestoreRepository()
     private val questions = MediatorLiveData<List<Question>>()
     private val answers = ArrayList<String>()
+    private val levels = ArrayList<Int>()
 
     private val index = MutableLiveData<Int>()
     private val selected = index.map {
         questions.value?.get(it)
     }
 
+    var isUpdated : HistoryItem? = null
+
     init {
-        answers.addAll(listOf("", "", ""))
+        answers.addAll(listOf("", "", "", ""))
         viewModelScope.launch {
             repository.getQuestions().asFlow()
                 .collect {
-                    questions.value = it
+                    questions.value = listOf(it[0], it[1], it[3], it[2])
                     index.postValue(0)
                 }
         }
@@ -57,29 +61,38 @@ class QuestionViewModel : ViewModel() {
 
     fun nextQuestion() : Boolean {
         val current = index.value
-        if (current == 2 || current == null) {
+        if (current == answers.size - 1 || current == null) {
             return false
         }
         index.value = current + 1
         return true
     }
 
-    fun addAnswer(content : String) {
-        answers.add(content)
+    fun addAnswer(content : String, level : Int) {
+        answers[index.value!!] = content
+        levels.add(level)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun saveAnswers(activity: Activity) {
-        val answer = Answer(0, answers)
-        val id = PersonalDatabase.getInstance(activity).dao().addAnswer(answer)
-        val historyItem = HistoryItem(0, -1, id, "Вы прошли опросник эмоционального состояния", LocalDateTime.now().format(
-            DateTimeFormatter.BASIC_ISO_DATE))
-        PersonalDatabase.getInstance(activity).dao().addHistoryItem(historyItem)
-        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
-        val now = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
-        with (sharedPref.edit()) {
-            putLong("last", now)
-            apply()
+        if (isUpdated == null) {
+            val answer = Answer(answers.subList(0, 2), levels[0], levels[1], levels[2], answers[3])
+            PersonalDatabase.getInstance(activity).dao().addAnswer(answer)
+
+            val historyItem = HistoryItem(null, answer.id, "Вы прошли опросник эмоционального состояния", LocalDateTime.now().toEpochSecond(
+                ZoneOffset.UTC))
+            PersonalDatabase.getInstance(activity).dao().addHistoryItem(historyItem)
+
+            val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+            val now = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+            with (sharedPref.edit()) {
+                putLong("last", now)
+                apply()
+            }
+        } else {
+            val answer = isUpdated!!.answer_id?.let { Answer(answers, 0, 0, 0, "", it) }
+            if (answer != null) {
+                PersonalDatabase.getInstance(activity).dao().updateAnswer(answer)
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.mainscreenlayout.domain.Record
 import com.example.mainscreenlayout.model.PersonalDatabase
 
-class RecordViewModel(private val id : Long) : ViewModel() {
+class RecordViewModel(private val id : String) : ViewModel() {
 
     fun getDescription(context : Context) : String {
         return ""

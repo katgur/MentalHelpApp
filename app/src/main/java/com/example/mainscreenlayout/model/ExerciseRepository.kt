@@ -11,6 +11,7 @@ import com.example.mainscreenlayout.domain.Message
 import com.example.mainscreenlayout.domain.Record
 import com.google.firebase.firestore.DocumentSnapshot
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 class ExerciseRepository(private val id: String) {
@@ -39,7 +40,7 @@ class ExerciseRepository(private val id: String) {
         for (column in (doc["columns"] as List<String>)) {
             columns[column] = ""
         }
-        record = Record(0, id, columns)
+        record = Record(id, columns)
         refreshCommands()
         val intro = doc["intro"] as String
         source.value = intro
@@ -48,9 +49,11 @@ class ExerciseRepository(private val id: String) {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun onFinished() {
         commands.value = emptyList()
-        val recordId = PersonalDatabase.getInstance(context).dao().addRecord(record)
-        val historyItem = HistoryItem(0, recordId,-1,"Пройдено упражнение " + (doc["name"].toString()), LocalDateTime.now().format(
-            DateTimeFormatter.BASIC_ISO_DATE))
+        PersonalDatabase.getInstance(context).dao().addRecord(record)
+        val historyItem = HistoryItem(record.id,
+            null,
+            "Пройдено упражнение " + (doc["name"].toString()),
+            LocalDateTime.now().toEpochSecond(ZoneOffset.UTC))
         PersonalDatabase.getInstance(context).dao().addHistoryItem(historyItem)
     }
 

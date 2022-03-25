@@ -9,7 +9,7 @@ class FavoritesViewModel : ViewModel() {
 
     fun getFavourites(context : Context) : List<MarkedItem> {
         //todo
-        return PersonalDatabase.getInstance(context).dao().getFavourites()
+        return PersonalDatabase.getInstance(context).dao().getAllFavourites()
     }
 
     fun onMarkedItemClick(item : MarkedItem) {

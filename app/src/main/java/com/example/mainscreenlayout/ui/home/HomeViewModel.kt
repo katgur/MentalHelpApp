@@ -3,6 +3,7 @@ package com.example.mainscreenlayout.ui.home
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.mainscreenlayout.domain.MarkableItem
+import com.example.mainscreenlayout.domain.Recommendation
 import com.example.mainscreenlayout.model.FirestoreRepository
 import com.example.mainscreenlayout.model.PersonalDatabase
 import com.example.mainscreenlayout.model.RoomRepository
@@ -10,7 +11,7 @@ import com.example.mainscreenlayout.model.RoomRepository
 class HomeViewModel : ViewModel() {
 
     private val firestoreRepository = FirestoreRepository()
-    private val roomRepository = RoomRepository()
+    private val recommendationSystem = Recommendation()
 
     private val exercises = MediatorLiveData<List<MarkableItem>>()
     private val packs = MediatorLiveData<List<MarkableItem>>()
@@ -24,7 +25,7 @@ class HomeViewModel : ViewModel() {
         for (exercise in exercises.value!!) {
             result.add(exercise)
         }
-        val favourites = PersonalDatabase.getInstance(context).dao().getFavourites()
+        val favourites = PersonalDatabase.getInstance(context).dao().getAllFavourites()
         //todo optimize
         for (markedItem in favourites) {
             for (markableItem in result) {
@@ -52,11 +53,8 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun observeRecommended(owner: LifecycleOwner, observer: Observer<List<MarkableItem>>) {
-        recommended.observe(owner, observer)
-        recommended.addSource(roomRepository.getRecommended()) {
-            recommended.setValue(it)
-        }
+    fun observeRecommended(owner: LifecycleOwner, observer: Observer<List<MarkableItem>>, context : Context) {
+        recommendationSystem.observeRecommended(owner, observer, context)
     }
 
     fun onRecommendedClick(content: String) {

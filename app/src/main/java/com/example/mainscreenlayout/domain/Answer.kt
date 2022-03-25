@@ -3,12 +3,16 @@ package com.example.mainscreenlayout.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
-//todo make type converter
 @Entity(tableName = "answers")
 data class Answer(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    @ColumnInfo(name = "answers")
-    val answers: List<String>
+    //todo map answers and fields
+    val answers: List<String>,
+    val depressed: Int,
+    val anxious: Int,
+    val stress: Int,
+    val problem: String,
+    @PrimaryKey
+    val id: String = UUID.randomUUID().toString()
 )

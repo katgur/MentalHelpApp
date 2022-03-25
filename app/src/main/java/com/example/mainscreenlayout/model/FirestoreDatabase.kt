@@ -8,7 +8,9 @@ import com.example.mainscreenlayout.domain.MarkableItem
 import com.example.mainscreenlayout.domain.Question
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -31,6 +33,30 @@ object FirestoreDatabase {
         return doc.get()
     }
 
+
+    fun get1(query: String) : LiveData<List<Question>> {
+        val data = MutableLiveData<List<Question>>()
+        val db = Firebase.firestore
+        val parts = query.split("/")
+
+        db.collection(parts[0])
+            .get()
+            .addOnSuccessListener { result ->
+                val response = ArrayList<Question>()
+                for (document in result) {
+                    val content = document.get("content").toString()
+                    val answers = document.get("answers") as ArrayList<String>
+                    response.add(Question(content, answers))
+                }
+                data.postValue(response)
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting documents.", exception)
+            }
+
+        return data
+    }
+
     fun get(query: String) : LiveData<Any> {
         val data = MutableLiveData<Any>()
         val db = Firebase.firestore
@@ -50,7 +76,7 @@ object FirestoreDatabase {
                 }
                 else if (parts.size == 3) {
                     for (document in result) {
-                        if (document.get("id") == parts[1]) {
+                        if (document.id == parts[1]) {
                             response = document.get(parts[2])
                             break
                         }
@@ -67,29 +93,6 @@ object FirestoreDatabase {
                 if (response != null) {
                     data.postValue(response!!)
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.e(TAG, "Error getting documents.", exception)
-            }
-
-        return data
-    }
-
-    fun get1(query: String) : LiveData<List<Question>> {
-        val data = MutableLiveData<List<Question>>()
-        val db = Firebase.firestore
-        val parts = query.split("/")
-
-        db.collection(parts[0])
-            .get()
-            .addOnSuccessListener { result ->
-                val response = ArrayList<Question>()
-                for (document in result) {
-                    val content = document.get("content").toString()
-                    val answers = document.get("answers") as ArrayList<String>
-                    response.add(Question(content, answers))
-                }
-                data.postValue(response)
             }
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error getting documents.", exception)

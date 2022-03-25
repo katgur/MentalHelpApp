@@ -19,28 +19,25 @@ class NicknameFragment : Fragment() {
     private lateinit var viewModel: NicknameViewModel
     private lateinit var binding: NicknameFragmentBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = NicknameFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(NicknameViewModel::class.java)
 
         binding.nickOk.setOnClickListener {
             val nick = binding.nickText.text
-            viewModel.addNickname(nick.toString())
+            viewModel.addNickname(requireActivity(), nick.toString())
             loadQuestionActivity()
         }
     }
 
     private fun loadQuestionActivity() {
         val startQuestionActivityIntent = Intent(context, QuestionActivity::class.java)
-        //startQuestionActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(startQuestionActivityIntent)
     }
 }

@@ -34,8 +34,12 @@ class RecordFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         //todo catch args
-        val id = requireArguments().getLong("id")
-        viewModel = ViewModelProvider(this, RecordViewModelFactory(id)).get(RecordViewModel::class.java)
+        val id = requireArguments().getString("id")
+        if (id != null) {
+            viewModel = ViewModelProvider(this, RecordViewModelFactory(id)).get(RecordViewModel::class.java)
+        } else {
+            requireActivity().finish()
+        }
 
         //todo catch exc
         binding.recordDescText.text = viewModel.getDescription(requireContext())

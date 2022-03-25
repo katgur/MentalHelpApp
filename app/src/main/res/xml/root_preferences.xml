@@ -18,35 +18,41 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="Личные данные">
 
         <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
+            app:key="name"
+            app:title="Имя"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
+        <Preference
+            app:key="delete_data"
+            app:title="Удалить данные"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:key="export_data"
+            app:title="Резервная копия"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:key="import_data"
+            app:title="Восстановление"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="Пароль">
 
         <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+            app:key="add_password"
+            app:title="Установить пароль" />
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+        <EditTextPreference
+            app:key="password"
+            app:title="Пароль"
+            app:dependency="add_password"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 

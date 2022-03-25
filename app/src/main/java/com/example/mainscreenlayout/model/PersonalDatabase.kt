@@ -6,12 +6,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.mainscreenlayout.domain.Answer
 import com.example.mainscreenlayout.domain.HistoryItem
 import com.example.mainscreenlayout.domain.MarkedItem
 import com.example.mainscreenlayout.utils.JsonConverters
 import com.example.mainscreenlayout.domain.Record
 
-@Database(entities=[Record::class, HistoryItem::class, MarkedItem::class], version=2)
+@Database(entities=[Record::class, HistoryItem::class, MarkedItem::class, Answer::class], version=7)
 @TypeConverters(JsonConverters::class)
 abstract class PersonalDatabase : RoomDatabase() {
 

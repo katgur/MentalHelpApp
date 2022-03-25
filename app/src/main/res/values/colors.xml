@@ -8,4 +8,11 @@
     <color name="secondaryDarkColor">#ac0800</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primaryColor2">#3e2723</color>
+    <color name="primaryLightColor2">#6a4f4b</color>
+    <color name="primaryDarkColor2">#1b0000</color>
+    <color name="secondaryColor2">#558b2f</color>
+    <color name="secondaryLightColor2">#85bb5c</color>
+    <color name="secondaryDarkColor2">#255d00</color>
 </resources>

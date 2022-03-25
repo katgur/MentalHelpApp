@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.adapter.HistoryAdapter
 import com.example.mainscreenlayout.databinding.FragmentHistoryBinding
+import com.example.mainscreenlayout.ui.answer.AnswerFragment
+import com.example.mainscreenlayout.ui.nick.NicknameFragment
 import com.example.mainscreenlayout.ui.record.RecordActivity
 
 class HistoryFragment : Fragment() {
@@ -18,12 +21,7 @@ class HistoryFragment : Fragment() {
     private lateinit var _binding: FragmentHistoryBinding
     private var viewManager = LinearLayoutManager(context)
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         return _binding.root
     }
@@ -36,12 +34,15 @@ class HistoryFragment : Fragment() {
         val history = historyViewModel.getHistory(requireActivity())
         val historyAdapter = HistoryAdapter(history)
         historyAdapter.onItemClick = {
-            if (it.record_id == -1L) {
-                //todo dialog view
-            } else if (it.answer_id == -1L) {
+            if (it.record_id != "") {
                 val startRecordActivityIntent = Intent(requireContext(), RecordActivity::class.java)
                 startRecordActivityIntent.putExtra("id", it.record_id)
                 startActivity(startRecordActivityIntent)
+            } else if (it.answer_id != "") {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment, AnswerFragment.newInstance(it))
+                    .disallowAddToBackStack()
+                    .commit()
             }
         }
 
