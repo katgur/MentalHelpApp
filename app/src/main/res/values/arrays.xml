@@ -9,4 +9,13 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+    
+    <array name="market">
+        <item>@drawable/beret</item>
+        <item>@drawable/cowboyhat</item>
+        <item>@drawable/partyhat</item>
+        <item>@drawable/pinkhat</item>
+        <item>@drawable/santahat</item>
+        <item>@drawable/tshirt</item>
+    </array>
 </resources>

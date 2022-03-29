@@ -12,10 +12,7 @@ class CommandAdapter(private var commands: List<String>) : RecyclerView.Adapter<
 
     var onItemClick: ((String) -> Unit)? = null
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): CommandHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommandHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_command, parent, false)
         return CommandHolder(itemView)

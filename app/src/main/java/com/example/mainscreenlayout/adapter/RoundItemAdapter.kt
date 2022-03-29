@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.domain.MarkableItem
 
-class RoundItemAdapter : HomeScreenItemAdapter() {
+class RoundItemAdapter(private val list : ArrayList<MarkableItem> = arrayListOf()) : RecyclerView.Adapter<RoundItemAdapter.RoundListItemHolder>() {
 
     var onItemClick: ((MarkableItem) -> Unit)? = null
 
@@ -20,18 +21,23 @@ class RoundItemAdapter : HomeScreenItemAdapter() {
         return RoundListItemHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: HomeScreenItemItemHolder, position: Int) {
+    override fun onBindViewHolder(holder: RoundListItemHolder, position: Int) {
         val exercise = list[position]
         holder.bind(exercise, onItemClick)
     }
 
     override fun getItemCount(): Int = list.size
 
-    class RoundListItemHolder(itemView: View) : HomeScreenItemItemHolder(itemView) {
+    fun addItems(items: List<MarkableItem>) {
+        list.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    class RoundListItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val text: TextView = itemView.findViewById(R.id.round_text)
 
-        override fun bind(content: MarkableItem, onItemClick: ((MarkableItem) -> Unit)?) {
+        fun bind(content: MarkableItem, onItemClick: ((MarkableItem) -> Unit)?) {
             text.text = content.name
             text.setOnClickListener {
                 onItemClick?.invoke(content)

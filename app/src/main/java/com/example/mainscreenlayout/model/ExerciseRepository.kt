@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
+import com.example.mainscreenlayout.domain.GamificationSystem
 import com.example.mainscreenlayout.domain.HistoryItem
 import com.example.mainscreenlayout.domain.Message
 import com.example.mainscreenlayout.domain.Record
@@ -55,6 +56,7 @@ class ExerciseRepository(private val id: String) {
             "Пройдено упражнение " + (doc["name"].toString()),
             LocalDateTime.now().toEpochSecond(ZoneOffset.UTC))
         PersonalDatabase.getInstance(context).dao().addHistoryItem(historyItem)
+        GamificationSystem.updatePoints(context)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

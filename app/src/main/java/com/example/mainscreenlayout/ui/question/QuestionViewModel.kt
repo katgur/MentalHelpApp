@@ -5,7 +5,9 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
+import androidx.preference.PreferenceManager
 import com.example.mainscreenlayout.domain.Answer
+import com.example.mainscreenlayout.domain.GamificationSystem
 import com.example.mainscreenlayout.domain.HistoryItem
 import com.example.mainscreenlayout.model.FirestoreRepository
 import com.example.mainscreenlayout.domain.Question
@@ -82,12 +84,14 @@ class QuestionViewModel : ViewModel() {
                 ZoneOffset.UTC))
             PersonalDatabase.getInstance(activity).dao().addHistoryItem(historyItem)
 
-            val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
             val now = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+            val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
             with (sharedPref.edit()) {
                 putLong("last", now)
                 apply()
             }
+
+            GamificationSystem.updatePoints(activity)
         } else {
             val answer = isUpdated!!.answer_id?.let { Answer(answers, 0, 0, 0, "", it) }
             if (answer != null) {
