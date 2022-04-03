@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nick.NicknameFragment"
-    android:gravity="center">
+    tools:context=".ui.nick.NicknameFragment">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:lines="3"
-            android:maxLines="3"
-            android:textAlignment="center"
-            android:text="Нет необходимости регистрироваться. Просто введи свой ник." />
-
-        <EditText
-            android:id="@+id/nick_text"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:autofillHints="Никнейм"
-            android:inputType="text" />
-
-        <Button
-            android:id="@+id/nick_ok"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ок" />
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="3"
+                android:maxLines="3"
+                android:textAlignment="center"
+                android:text="Введи свой ник"
+                style="@style/TextViewPrimary"
+                android:layout_above="@id/nick_text"/>
+
+            <EditText
+                android:id="@+id/nick_text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:autofillHints="Никнейм"
+                android:inputType="text"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/nickOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_check_24"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="80dp"/>
+
+</RelativeLayout>

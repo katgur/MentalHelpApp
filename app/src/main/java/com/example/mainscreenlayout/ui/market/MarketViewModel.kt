@@ -10,10 +10,10 @@ import com.example.mainscreenlayout.domain.GamificationSystem
 
 class MarketViewModel(private val context : Context) : ViewModel() {
 
-    private val items = MutableLiveData<ArrayList<Int>>()
+    private val items = MutableLiveData<HashSet<Int>>()
 
     private val selected = MutableLiveData<Pair<Int, Int>>()
-    private val current = MutableLiveData<ArrayList<Int>>()
+    private val current = MutableLiveData<HashSet<Int>>()
 
     init {
         loadItems(context)
@@ -27,7 +27,7 @@ class MarketViewModel(private val context : Context) : ViewModel() {
     }
 
     private fun loadItems(context : Context) {
-        val items = arrayListOf<Int>()
+        val items = hashSetOf<Int>()
         val market = context.resources.obtainTypedArray(R.array.market)
         for (i: Int in 0 until 6) {
             items.add(market.getResourceId(i, 0))
@@ -38,7 +38,7 @@ class MarketViewModel(private val context : Context) : ViewModel() {
     private fun loadCurrent(context : Context) {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         val current = sharedPref.getStringSet("current", emptySet())
-        val current1 = arrayListOf<Int>()
+        val current1 = hashSetOf<Int>()
         current1.add(R.drawable.bear)
         if (current != null) {
             for (item in current) {
@@ -53,7 +53,7 @@ class MarketViewModel(private val context : Context) : ViewModel() {
         GamificationSystem.getInstance(context).points.observe(owner, observer)
     }
 
-    fun observeItems(owner: LifecycleOwner, observer: Observer<List<Int>>) {
+    fun observeItems(owner: LifecycleOwner, observer: Observer<HashSet<Int>>) {
         items.observe(owner, observer)
     }
 
@@ -61,7 +61,7 @@ class MarketViewModel(private val context : Context) : ViewModel() {
         selected.observe(owner, observer)
     }
 
-    fun observeCurrent(owner: LifecycleOwner, observer: Observer<List<Int>>) {
+    fun observeCurrent(owner: LifecycleOwner, observer: Observer<HashSet<Int>>) {
         current.observe(owner, observer)
     }
 
@@ -84,7 +84,7 @@ class MarketViewModel(private val context : Context) : ViewModel() {
     fun addCurrent(id: Int) {
         val value = current.value
         value!!.add(id)
-        current.postValue(value!!)
+        current.value = value!!
         GamificationSystem.buyItem(context)
     }
 

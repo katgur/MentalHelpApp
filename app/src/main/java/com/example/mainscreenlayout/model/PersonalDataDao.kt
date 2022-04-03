@@ -27,7 +27,7 @@ interface PersonalDataDao {
     @Query("SELECT * FROM marked")
     fun getAllFavourites() : List<MarkedItem>
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateRecord(record : Record)
 
     @Delete
@@ -39,7 +39,8 @@ interface PersonalDataDao {
     @Query("SELECT * FROM answers WHERE id = :id")
     fun getAnswer(id: String) : Answer
 
-    @Update
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateAnswer(answer : Answer)
 
     @Delete
@@ -54,7 +55,7 @@ interface PersonalDataDao {
     @Insert
     fun addRecords(records : List<Record>)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addHistory(history : List<HistoryItem>)
 
     @Insert
@@ -73,4 +74,7 @@ interface PersonalDataDao {
             "ORDER BY history.date DESC " +
             "LIMIT 1")
     fun getLastAnswer() : Map<HistoryItem, List<Answer>>
+
+    @Query("SELECT * FROM history WHERE id=:id")
+    fun getHistoryItem(id: String) : HistoryItem
 }

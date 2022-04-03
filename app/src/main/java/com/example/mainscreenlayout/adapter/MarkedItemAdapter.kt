@@ -10,7 +10,7 @@ import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.domain.HistoryItem
 import com.example.mainscreenlayout.domain.MarkedItem
 
-class MarkedItemAdapter(private val  favourites : List<MarkedItem>) : RecyclerView.Adapter<MarkedItemAdapter.MarkedItemViewHolder>()  {
+class MarkedItemAdapter(private val favourites : List<MarkedItem>) : RecyclerView.Adapter<MarkedItemAdapter.MarkedItemViewHolder>()  {
 
     var onItemClick: ((MarkedItem) -> Unit)? = null
 
@@ -34,7 +34,11 @@ class MarkedItemAdapter(private val  favourites : List<MarkedItem>) : RecyclerVi
         private val date = itemView.findViewById<TextView>(R.id.history_date)
 
         fun bind(item : MarkedItem) {
-            image.setImageResource(R.drawable.ic_launcher_background)
+            if (item.record_id != null) {
+                image.setImageResource(R.drawable.pink_gradient)
+            } else if (item.exercise_id != null) {
+                image.setImageResource(R.drawable.secondary_light_color_gradient)
+            }
             description.text = item.content
             date.text = ""
             itemView.setOnClickListener {

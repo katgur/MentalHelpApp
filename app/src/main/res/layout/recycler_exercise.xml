@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
-    android:layout_height="150dp"
-    android:background="@drawable/bg_gradient">
+    android:layout_width="150dp"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/card_view_corner_radius"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="10dp">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,14 +18,19 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_favorite_24"
             android:outlineAmbientShadowColor="@color/primaryDarkColor"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"/>
 
         <TextView
             android:id="@+id/recycler_exercise_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Тут должно быть название" />
+            android:text="Название упражнения"
+            style="@style/TextViewDefault"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"/>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

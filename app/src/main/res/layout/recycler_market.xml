@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="@dimen/card_view_corner_radius"
+    android:background="@color/white">
 
-    <Button
-        android:id="@+id/recycler_market_delete_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Удалить" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/recycler_market_iv"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+        <ImageButton
+            android:id="@+id/recycler_market_delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_clear_24"
+            android:layout_alignParentEnd="true"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <ImageView
+            android:id="@+id/recycler_market_iv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/recycler_market_delete_btn"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

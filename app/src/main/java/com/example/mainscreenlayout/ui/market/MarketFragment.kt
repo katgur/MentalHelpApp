@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,6 @@ class MarketFragment : Fragment() {
         val adapter = MarketAdapter()
         binding.marketRv.adapter = adapter
         binding.marketRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
         adapter.onItemClick = { item ->
             viewModel.setSelected(item)
         }
@@ -64,11 +64,12 @@ class MarketFragment : Fragment() {
         })
 
         viewModel.observeSelected(viewLifecycleOwner, {
+            Log.d("MarketFragment", "selected changed: " + it.first + " " + it.second)
             viewModel.addCurrent(it.first)
-            adapter.setSelected(it.second)
         })
 
         viewModel.observeCurrent(viewLifecycleOwner, {
+            Log.d("MarketFragment", "current changed: " + it.joinToString(" "))
             val layers = arrayListOf<Drawable>()
             for (id in it) {
                 AppCompatResources.getDrawable(requireContext(), id)?.let { it1 -> layers.add(it1) }

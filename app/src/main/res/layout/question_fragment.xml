@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.question.QuestionFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.question.QuestionFragment"
+    android:background="@drawable/card_gradient">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -13,49 +15,69 @@
 
         <TextView
             android:id="@+id/question_text"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/main_text_layout_width"
             android:layout_height="wrap_content"
-            android:text="Тут должен быть вопрос" />
+            android:text="Тут должен быть вопрос"
+            style="@style/TextViewSecondary"
+            android:textAlignment="center"/>
 
-        <RadioGroup
-            android:id="@+id/question_rg"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Ответ 1" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Ответ 2" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Ответ 3" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Ответ 4" />
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="@dimen/card_view_corner_radius">
+
+            <RadioGroup
+                android:id="@+id/question_rg"
+                android:layout_width="@dimen/main_text_layout_width"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Ответ 1"
+                    android:layout_marginTop="10dp"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Ответ 2"
+                    android:layout_marginTop="10dp"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Ответ 3"
+                    android:layout_marginTop="10dp"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Ответ 4"
+                    android:layout_marginTop="10dp"/>
+            </RadioGroup>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
-            <Button
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/question_skip_btn"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:text="Пропустить"
-                android:layout_margin="30dp" />
-            <Button
+                android:layout_margin="30dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            <ImageButton
                 android:id="@+id/question_forward_btn"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
-                android:text="Далее"
-                android:layout_margin="30dp" />
+                android:src="@drawable/ic_baseline_arrow_right_24"
+                android:layout_margin="30dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

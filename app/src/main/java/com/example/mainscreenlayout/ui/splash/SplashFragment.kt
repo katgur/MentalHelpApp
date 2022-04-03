@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.example.mainscreenlayout.databinding.SplashFragmentBinding
 import com.example.mainscreenlayout.ui.nick.NicknameFragment
 import com.example.mainscreenlayout.R
+import com.example.mainscreenlayout.domain.HistoryItem
 import com.example.mainscreenlayout.ui.MainActivity
 import com.example.mainscreenlayout.ui.PasswordFragment
 import com.example.mainscreenlayout.ui.question.QuestionActivity

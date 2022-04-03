@@ -53,7 +53,7 @@ class ChatFragment : Fragment() {
             val k = requireArguments().getString("id", "default")
             viewModel = ViewModelProvider(this, ChatViewModelFactory(k, requireActivity().application)).get(ChatViewModel::class.java)
         } catch (e : IllegalStateException) {
-            viewModel = ViewModelProvider(this, ChatViewModelFactory("mock", requireActivity().application)).get(ChatViewModel::class.java)
+            viewModel = ViewModelProvider(this, ChatViewModelFactory("default", requireActivity().application)).get(ChatViewModel::class.java)
         }
         // set chat recycler view
         binding.recyclerChat.layoutManager = chatViewManager
@@ -61,6 +61,10 @@ class ChatFragment : Fragment() {
         viewModel.observeMessages(viewLifecycleOwner, {
             chatAdapter.addItem(it)
             //chatAdapter.setItems(it)
+        })
+
+        viewModel.observeEnterMode(viewLifecycleOwner, {
+            binding.buttonChatSend.isEnabled = it
         })
 
         // set command recycler view
@@ -79,6 +83,7 @@ class ChatFragment : Fragment() {
         binding.buttonChatSend.setOnClickListener {
             val message = binding.editGchatMessage.text.toString()
             viewModel.processMessage(Message(message, "me", 0))
+            binding.editGchatMessage.setText("")
         }
     }
 }

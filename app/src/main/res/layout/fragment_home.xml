@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
-    android:background="@color/white">
+    android:background="@color/beige"
+    android:paddingVertical="20dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,9 +18,60 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp">
+
+                    <TextView
+                        android:id="@+id/home_points_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Баллы"
+                        style="@style/TextViewSecondary"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:id="@+id/home_level_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Уровень"
+                        style="@style/TextViewSecondary"
+                        android:layout_below="@id/home_points_text"/>
+
+                    <Button
+                        android:id="@+id/home_market_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Магазин"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="5dp"
+                        style="@style/ButtonDefault" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/home_bear_iv"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/bear"
+                    android:background="@color/beige"/>
+
+            </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="20dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/card_view_corner_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -29,7 +81,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Рекомендации" />
+                        android:text="Рекомендации"
+                        style="@style/TextViewPrimary"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_recommended"
@@ -42,7 +95,11 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="20dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/card_view_corner_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,55 +109,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Привет" />
-
-                    <TextView
-                        android:id="@+id/home_points_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Баллы" />
-
-                    <TextView
-                        android:id="@+id/home_level_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Уровень" />
-
-                    <Button
-                        android:id="@+id/home_market_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Магазин" />
-
-                    <ImageView
-                        android:id="@+id/home_bear_iv"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/bear"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Наборы"/>
+                        android:text="Наборы"
+                        style="@style/TextViewPrimary"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_packs"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 
@@ -108,23 +123,37 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="20dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/card_view_corner_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Упражнения"/>
+                        android:layout_height="wrap_content">
 
-                    <Button
-                        android:id="@+id/home_exercise_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Все"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Упражнения"
+                            style="@style/TextViewPrimary"
+                            android:layout_alignParentStart="true"/>
+
+                        <Button
+                            android:id="@+id/home_exercise_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Все"
+                            style="@style/ButtonDefault"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_exercises"

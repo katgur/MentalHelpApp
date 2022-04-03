@@ -12,7 +12,6 @@ class RecordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_record)
 
         val extras = intent.extras
-        //todo
         if (extras != null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.record_fcv, RecordFragment.newInstance(extras))

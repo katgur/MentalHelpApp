@@ -21,6 +21,8 @@ class GamificationSystem(private val context : Context) {
     companion object {
 
         private var instance : GamificationSystem? = null
+        private val ITEM_COST = 50
+        private val ACTION_VALUE = 10
 
         fun getInstance(context : Context) : GamificationSystem {
             if (instance == null) {
@@ -33,7 +35,7 @@ class GamificationSystem(private val context : Context) {
             val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
             var points = sharedPref.getInt("points", 0)
             var level = sharedPref.getInt("level", 0)
-            points += 10
+            points += ACTION_VALUE
             if (points != 0 && points % 30 == 0) {
                 level += 1
             }
@@ -49,7 +51,7 @@ class GamificationSystem(private val context : Context) {
             val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
             var points = sharedPref.getInt("points", 0)
             val level = sharedPref.getInt("level", 0)
-            points -= 10
+            points -= ITEM_COST
             with (sharedPref.edit()) {
                 putInt("points", points)
                 putInt("level", level)
@@ -62,7 +64,7 @@ class GamificationSystem(private val context : Context) {
             val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
             var points = sharedPref.getInt("points", 0)
             val level = sharedPref.getInt("level", 0)
-            points += 10
+            points += ITEM_COST
             with (sharedPref.edit()) {
                 putInt("points", points)
                 putInt("level", level)

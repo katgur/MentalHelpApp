@@ -1,14 +1,23 @@
 package com.example.mainscreenlayout.ui.history
 
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.mainscreenlayout.domain.HistoryItem
 import com.example.mainscreenlayout.model.PersonalDatabase
 
 class HistoryViewModel : ViewModel() {
 
-    fun getHistory(context : Context) : List<HistoryItem> {
-        // todo create repository
-        return PersonalDatabase.getInstance(context).dao().getAllHistory()
+    private val history = MutableLiveData<ArrayList<HistoryItem>>()
+
+    fun load(context: Context) {
+        val history = PersonalDatabase.getInstance(context).dao().getAllHistory()
+        this.history.postValue(ArrayList(history))
+    }
+
+    fun observeHistory(owner: LifecycleOwner, observer: Observer<ArrayList<HistoryItem>>) {
+        this.history.observe(owner, observer)
     }
 }

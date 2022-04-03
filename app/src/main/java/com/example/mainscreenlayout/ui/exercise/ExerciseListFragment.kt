@@ -48,16 +48,11 @@ class ExerciseListFragment : Fragment() {
                 viewModel.markExercise(requireContext(), it)
             }
             adapter.onExerciseClick = {
-                it.id?.let { it1 -> ChatFragment.newInstance(it1) }?.let { it2 ->
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(
-                            R.id.exercise_fcv,
-                            it2
-                        )
-                        .commit()
-                }
-
-                //requireActivity().finish()
+                val navView: BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
+                navView.selectedItemId = R.id.navigation_chat
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment, ChatFragment.newInstance(it.id!!))
+                    .commit()
             }
             binding.exerciseListRv.adapter = adapter
         } else {

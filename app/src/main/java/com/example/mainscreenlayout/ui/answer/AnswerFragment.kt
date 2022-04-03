@@ -7,26 +7,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.databinding.AnswerFragmentBinding
-import com.example.mainscreenlayout.databinding.FragmentHistoryBinding
 import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.ui.history.HistoryFragment
+import com.example.mainscreenlayout.model.PersonalDatabase
 import com.example.mainscreenlayout.ui.question.QuestionActivity
-import com.example.mainscreenlayout.ui.question.QuestionFragment
-import com.example.mainscreenlayout.ui.question.QuestionViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 class AnswerFragment : Fragment() {
 
     companion object {
-        fun newInstance(historyItem : HistoryItem) : AnswerFragment {
+        fun newInstance(id : String) : AnswerFragment {
             val instance = AnswerFragment()
             val args = Bundle()
-            args.putParcelable("historyItem", historyItem)
+            args.putString("historyId", id)
             instance.arguments = args
             return instance
         }
@@ -42,18 +39,20 @@ class AnswerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AnswerViewModel::class.java)
+        viewModel = ViewModelProvider(this)[AnswerViewModel::class.java]
 
         //todo
-        val historyItem = requireArguments().get("historyItem") as HistoryItem
+        val historyId = requireArguments().get("historyId") as String
+        val historyItem = PersonalDatabase.getInstance(requireContext()).dao().getHistoryItem(historyId)
 
         binding.answerText.text = historyItem.answer_id?.let { viewModel.getContent(requireContext(), it) }
+        binding.answerDateText.text = LocalDateTime.ofEpochSecond(historyItem.date, 0, ZoneOffset.ofHours(3)).format(
+            DateTimeFormatter.ofPattern("dd-MM-yyyy"))
 
-        binding.answerText.setOnLongClickListener {
+        binding.answerEditBtn.setOnClickListener {
             val intent = Intent(requireActivity(), QuestionActivity::class.java)
-            intent.putExtra("historyItem", historyItem)
+            intent.putExtra("answerId", historyItem.answer_id)
             startActivity(intent)
-            return@setOnLongClickListener true
         }
 
         binding.answerDeleteBtn.setOnClickListener {

@@ -25,7 +25,19 @@ data class Record(
         if (position >= keys.size) {
             return false
         }
-        columns[keys[position]] = column
+        val old = columns[keys[position]]
+        if (old == null) {
+            columns[keys[position]] = column
+        } else {
+            columns[keys[position]] = "$old $column"
+        }
+        return true
+    }
+
+    fun next(): Boolean {
+        if (position >= keys.size) {
+            return false
+        }
         position++
         return true
     }

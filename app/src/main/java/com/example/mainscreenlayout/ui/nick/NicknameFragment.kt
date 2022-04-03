@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mainscreenlayout.ui.question.QuestionActivity
 import com.example.mainscreenlayout.databinding.NicknameFragmentBinding
+import com.example.mainscreenlayout.domain.HistoryItem
 
 class NicknameFragment : Fragment() {
 
@@ -37,7 +38,7 @@ class NicknameFragment : Fragment() {
     }
 
     private fun loadQuestionActivity() {
-        val startQuestionActivityIntent = Intent(context, QuestionActivity::class.java)
-        startActivity(startQuestionActivityIntent)
+        val intent = Intent(context, QuestionActivity::class.java)
+        startActivity(intent)
     }
 }

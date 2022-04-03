@@ -9,18 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.adapter.RoundItemAdapter
 import com.example.mainscreenlayout.adapter.RoundedRectangleItemAdapter
 import com.example.mainscreenlayout.databinding.FragmentHomeBinding
+import com.example.mainscreenlayout.domain.MarkableItem
 import com.example.mainscreenlayout.ui.market.MarketActivity
-import com.example.mainscreenlayout.ui.exercise.ExerciseListActivity
 import com.example.mainscreenlayout.ui.chat.ChatFragment
+import com.example.mainscreenlayout.ui.exercise.ExerciseListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
@@ -42,21 +41,17 @@ class HomeFragment : Fragment() {
         setupExerciseList()
 
         binding.homeExerciseBtn.setOnClickListener {
-            val startExerciseActivityIntent = Intent(requireContext(), ExerciseListActivity::class.java)
-            startExerciseActivityIntent.putExtra("exercises", viewModel.getExercises(requireContext()))
-            startActivity(startExerciseActivityIntent)
+            openExercisesList(viewModel.getExercises(requireContext()))
         }
 
         binding.homeMarketBtn.setOnClickListener {
             val intent = Intent(requireContext(), MarketActivity::class.java)
-            intent.putExtra("points", Integer.parseInt(binding.homePointsText.text as String))
-            intent.putExtra("level", Integer.parseInt(binding.homeLevelText.text as String))
             startActivity(intent)
         }
 
         viewModel.observePoints(viewLifecycleOwner, {
-            binding.homePointsText.text = it.first.toString()
-            binding.homeLevelText.text = it.second.toString()
+            binding.homePointsText.text = "Баллы " + it.first.toString()
+            binding.homeLevelText.text = "Уровень " + it.second.toString()
         }, requireContext())
     }
 
@@ -81,9 +76,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecommendedList() {
-        val recommendedAdapter = RoundItemAdapter()
+        val recommendedAdapter = RoundedRectangleItemAdapter()
         recommendedAdapter.onItemClick = {
-            it.name?.let { it1 -> viewModel.onRecommendedClick(it1) }
+            it.id?.let { it1 -> goToExercise(it1) }
         }
         viewModel.observeRecommended(viewLifecycleOwner, {
             recommendedAdapter.addItems(it)
@@ -95,9 +90,8 @@ class HomeFragment : Fragment() {
 
     private fun setupPackList() {
         val packsAdapter = RoundedRectangleItemAdapter()
-        //todo on pack item click
         packsAdapter.onItemClick = {
-            it.name?.let { it1 -> viewModel.onPackClick(it1) }
+            openExercisesList(viewModel.getExercises(requireContext(), it.id))
         }
         viewModel.observePacks(viewLifecycleOwner, {
             packsAdapter.addItems(it)
@@ -110,16 +104,7 @@ class HomeFragment : Fragment() {
     private fun setupExerciseList() {
         val exerciseAdapter = RoundedRectangleItemAdapter()
         exerciseAdapter.onItemClick = {
-            val navView: BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
-            navView.selectedItemId = R.id.navigation_chat
-
-            it.id?.let { it1 -> ChatFragment.newInstance(it1) }?.let { it2 ->
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment,
-                        it2
-                    )
-                    .commit()
-            }
+            it.id?.let { it1 -> goToExercise(it1) }
         }
         viewModel.observeExercises(viewLifecycleOwner, {
             exerciseAdapter.addItems(it.subList(0, 5))
@@ -127,5 +112,21 @@ class HomeFragment : Fragment() {
 
         binding.recyclerExercises.adapter = exerciseAdapter
         binding.recyclerExercises.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun goToExercise(id: String) {
+        val navView: BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
+        navView.selectedItemId = R.id.navigation_chat
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, ChatFragment.newInstance(id))
+            .commit()
+    }
+
+    private fun openExercisesList(exercises: ArrayList<MarkableItem>) {
+        val extras = Bundle()
+        extras.putParcelableArrayList("exercises", exercises)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, ExerciseListFragment.newInstance(extras))
+            .commit()
     }
 }

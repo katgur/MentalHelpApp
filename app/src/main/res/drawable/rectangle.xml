@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="200dp"
+                android:startColor="#caedaf"
+                android:endColor="@color/white" />
+            <corners android:radius="@dimen/card_view_corner_radius" />
+        </shape>
+    </item>
+</selector>

@@ -1,10 +1,13 @@
 package com.example.mainscreenlayout.ui
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -29,48 +32,45 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                 .replace(R.id.settings, SettingsFragment())
                 .commit()
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this)
-
-        val sharedPref = this.getPreferences(Context.MODE_PRIVATE)
-        val mode = sharedPref.getBoolean("isNight", false)
-        if (mode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+
+        val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+                Log.d("permission asking", "got result in requestPermissionLauncher")
+                if (isGranted) {
+                    Log.d("permission asking", "granted in Launcher")
+
+                    // Permission is granted. Continue the action or workflow in your
+                    // app.
+                } else {
+                    Log.d("permission asking", "not granted in Launcher")
+
+                    // Explain to the user that the feature is unavailable because the
+                    // features requires a permission that the user has denied. At the
+                    // same time, respect the user's decision. Don't link to system
+                    // settings in an effort to convince the user to change their
+                    // decision.
+                }
+            }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             val dataManager = PersonalDataManager(requireActivity())
 
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-                if (it[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true) {
-                    dataManager.exportData()
-                } else {
-                    dataManager.explainPermission("Это разрешение необходимо для создания резервной копии данных приложения.")
-                }
-                if (it[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
-                    dataManager.importData()
-                } else {
-                    dataManager.explainPermission("Это разрешение необходимо для восстановления данных приложения.")
-                }
-            }
-
             val deleteDataPrefBtn = findPreference<Preference>("delete_data")
             deleteDataPrefBtn?.setOnPreferenceClickListener {
-                //todo add dialog
-                PersonalDatabase.getInstance(requireContext()).clearAllTables()
-                val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext())
-                with (sharedPref.edit()) {
-                    remove("name")
-                    apply()
-                }
+                AlertDialog.Builder(activity)
+                    .setMessage("Вы уверены, что хотите удалить все данные приложения?")
+                    .setPositiveButton("Да") { _, _ ->
+                        dataManager.deleteData()
+                    }
+                    .setNegativeButton("Нет") { dialog, _ ->
+                        dialog.cancel()
+                    }
+                    .create()
+                    .show()
                 return@setOnPreferenceClickListener true
             }
 

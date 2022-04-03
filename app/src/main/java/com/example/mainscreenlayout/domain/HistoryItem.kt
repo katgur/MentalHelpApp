@@ -2,11 +2,9 @@ package com.example.mainscreenlayout.domain
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.PrimaryKey
+import androidx.versionedparcelable.VersionedParcelize
 import java.time.LocalDateTime
 import java.util.*
 
@@ -29,35 +27,4 @@ data class HistoryItem(
     val date : Long,
     @PrimaryKey
     val id: String = UUID.randomUUID().toString()
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readLong(),
-        parcel.readString()!!
-    ) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(record_id)
-        parcel.writeString(answer_id)
-        parcel.writeString(description)
-        parcel.writeLong(date)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<HistoryItem> {
-        override fun createFromParcel(parcel: Parcel): HistoryItem {
-            return HistoryItem(parcel)
-        }
-
-        override fun newArray(size: Int): Array<HistoryItem?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+)

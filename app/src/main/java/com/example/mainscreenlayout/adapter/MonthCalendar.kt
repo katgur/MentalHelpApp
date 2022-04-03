@@ -4,8 +4,10 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.domain.Answer
@@ -50,12 +52,25 @@ class MonthCalendar(private var data : HashMap<LocalDate, Answer> = hashMapOf(),
     inner class DayHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         private val day = itemView.findViewById<TextView>(R.id.calendar_day)
-        private val status = itemView.findViewById<TextView>(R.id.calendar_status)
+        private val depressed = itemView.findViewById<ImageView>(R.id.status_depression)
+        private val anxious = itemView.findViewById<ImageView>(R.id.status_anxiety)
+        private val stress = itemView.findViewById<ImageView>(R.id.status_stress)
 
         fun bind(date : LocalDate, answer : Answer?) {
             day.text = date.dayOfMonth.toString()
             if (answer != null) {
-                status.text = answer.problem
+                setEmotion(answer.depressed, depressed)
+                setEmotion(answer.anxious, anxious)
+                setEmotion(answer.stress, stress)
+            }
+        }
+        
+        private fun setEmotion(value: Int, img: ImageView) {
+            when (value) {
+                4 -> img.setImageDrawable(AppCompatResources.getDrawable(itemView.context, R.drawable.crying))
+                3 -> img.setImageDrawable(AppCompatResources.getDrawable(itemView.context, R.drawable.sad))
+                2 -> img.setImageDrawable(AppCompatResources.getDrawable(itemView.context, R.drawable.neutral))
+                1 -> img.setImageDrawable(AppCompatResources.getDrawable(itemView.context, R.drawable.smile))
             }
         }
     }

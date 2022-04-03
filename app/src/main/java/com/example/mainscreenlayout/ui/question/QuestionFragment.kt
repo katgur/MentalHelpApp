@@ -55,7 +55,7 @@ class QuestionFragment : Fragment() {
 
         binding.questionRg.setOnCheckedChangeListener { radioGroup, id ->
             val radioButton = radioGroup.findViewById<RadioButton>(id)
-            viewModel.addAnswer(radioButton.text as String, id)
+            viewModel.addAnswer(radioButton.text as String, ((id + 3) % 4) + 1)
         }
     }
 

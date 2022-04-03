@@ -3,18 +3,17 @@ package com.example.mainscreenlayout.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.domain.Record
 
 class RecordAdapter(private val record : Record) : RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
 
-    var onLongItemClick: ((RecordViewHolder, MutableMap.MutableEntry<String, String>) -> Unit)? = null
-    var onColumnContentEdited: ((MutableMap.MutableEntry<String, String>) -> Unit) = {
-        record.columns[it.key] = it.value
-    }
+    var onLongItemClick: (() -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -41,20 +40,16 @@ class RecordAdapter(private val record : Record) : RecyclerView.Adapter<RecordAd
         fun bind(entry : MutableMap.MutableEntry<String, String>) {
             name.text = entry.key
             description.setText(entry.value)
+
             itemView.setOnLongClickListener {
-                onLongItemClick?.invoke(this, entry)
+                description.isEnabled = true
+                onLongItemClick?.invoke()
                 return@setOnLongClickListener true
             }
-            description.setOnFocusChangeListener { view, hasFocus ->
-                if (!hasFocus) {
-                    onColumnContentEdited?.invoke(entry)
-                    description.isEnabled = false
-                }
-            }
-        }
 
-        fun makeEditable() {
-            description.isEnabled = true
+            description.doAfterTextChanged {
+                record.columns[entry.key] = it.toString()
+            }
         }
     }
 }

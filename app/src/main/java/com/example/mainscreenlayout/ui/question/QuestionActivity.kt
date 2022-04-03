@@ -6,9 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.preference.PreferenceManager
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.domain.HistoryItem
 import com.example.mainscreenlayout.ui.MainActivity
+import java.time.LocalDate
 
 class QuestionActivity : AppCompatActivity() {
 
@@ -19,18 +20,23 @@ class QuestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
 
-        val historyItem = intent.extras?.get("historyItem")
+        val answerId = intent.getStringExtra("answerId")
 
-        //todo remove !
-        if (viewModel.hasAnswersToday(this)) {
-            val startMainActivityIntent = Intent(this, MainActivity::class.java)
-            startActivity(startMainActivityIntent)
-            finish()
-        } else {
-            if (historyItem != null) {
-                viewModel.isUpdated = historyItem as HistoryItem
+        if (answerId == null) {
+            if (viewModel.hasAnswersToday(this)) {
+                val startMainActivityIntent = Intent(this, MainActivity::class.java)
+                startActivity(startMainActivityIntent)
+                finish()
+            } else {
+                // todo loading animation
+                viewModel.observeSelected(this, {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.question_fcv, QuestionFragment.newInstance(it))
+                        .commit()
+                })
             }
-
+        } else {
+            viewModel.isUpdated = answerId
             // todo loading animation
             viewModel.observeSelected(this, {
                 supportFragmentManager.beginTransaction()

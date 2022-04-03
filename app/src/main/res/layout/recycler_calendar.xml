@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="53dp"
     android:gravity="center"
-    android:background="@color/secondaryLightColor">
+    android:layout_margin="3dp">
 
     <TextView
         android:id="@+id/calendar_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="day" />
+        android:layout_margin="3dp"
+        android:text="day"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"/>
 
-    <TextView
-        android:id="@+id/calendar_status"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="status" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/calendar_day">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/status_depression"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            app:tint="@color/depressed" />
+        <ImageView
+            android:id="@+id/status_anxiety"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            app:tint="@color/anxious" />
+        <ImageView
+            android:id="@+id/status_stress"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            app:tint="@color/stress" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/card_view_corner_radius"
+    android:layout_marginBottom="20dp"
+    android:layout_marginHorizontal="30dp"
+    app:cardElevation="0dp">
 
-    <TextView
-        android:id="@+id/record_column_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/record_column_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"/>
+        <TextView
+            android:id="@+id/record_column_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Столбец"
+            android:layout_margin="10dp"
+            style="@style/TextViewPrimary"
+            android:layout_alignParentStart="true"/>
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/record_column_content"
+            android:layout_width="@dimen/main_text_layout_width"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Содержимое"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+            android:textSize="15sp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="50dp"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

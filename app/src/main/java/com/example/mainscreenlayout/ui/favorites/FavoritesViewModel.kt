@@ -11,8 +11,4 @@ class FavoritesViewModel : ViewModel() {
         //todo
         return PersonalDatabase.getInstance(context).dao().getAllFavourites()
     }
-
-    fun onMarkedItemClick(item : MarkedItem) {
-        //todo
-    }
 }

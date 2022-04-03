@@ -11,9 +11,6 @@ class MarketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_market)
 
-//        val points = intent.extras?.getInt("points")
-//        val level = intent.extras?.getInt("level")
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.market_fcv, MarketFragment.newInstance())
             .disallowAddToBackStack()

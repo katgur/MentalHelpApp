@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.domain.HistoryItem
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
-class HistoryAdapter(private val history : List<HistoryItem>) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
+class HistoryAdapter(private val history : ArrayList<HistoryItem> = arrayListOf()) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     var onItemClick: ((HistoryItem) -> Unit)? = null
 
@@ -32,6 +33,12 @@ class HistoryAdapter(private val history : List<HistoryItem>) : RecyclerView.Ada
 
     override fun getItemCount(): Int = history.size
 
+    fun setItems(items: ArrayList<HistoryItem>) {
+        history.clear()
+        history.addAll(items.asReversed())
+        notifyDataSetChanged()
+    }
+
     inner class HistoryViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         private val image = itemView.findViewById<ImageView>(R.id.history_image)
@@ -39,10 +46,14 @@ class HistoryAdapter(private val history : List<HistoryItem>) : RecyclerView.Ada
         private val date = itemView.findViewById<TextView>(R.id.history_date)
 
         fun bind(item: HistoryItem) {
-            image.setImageResource(R.drawable.ic_launcher_background)
+            if (item.answer_id != null) {
+                image.setImageResource(R.drawable.secondary_light_color_gradient)
+            } else if (item.record_id != null) {
+                image.setImageResource(R.drawable.secondary_dark_color_gradient)
+            }
             description.text = item.description
-            date.text = LocalDateTime.ofEpochSecond(item.date, 0, ZoneOffset.UTC).format(
-                DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            date.text = LocalDateTime.ofEpochSecond(item.date, 0, ZoneOffset.ofHours(3))
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm"))
             itemView.setOnClickListener {
                 onItemClick?.invoke(item)
             }

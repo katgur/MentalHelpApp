@@ -66,12 +66,8 @@ class ChatAdapter(private var messages: List<Message> = mutableListOf()) : Recyc
         @androidx.annotation.RequiresApi(Build.VERSION_CODES.O)
         fun bind(message: Message) {
             val contentTextView: android.widget.TextView = itemView.findViewById(R.id.text_gchat_message_other)
-            val dateTextView: android.widget.TextView = itemView.findViewById(R.id.text_gchat_date_other)
-            val timeTextView: android.widget.TextView = itemView.findViewById(R.id.text_gchat_timestamp_other)
 
             contentTextView.text = message.content
-            dateTextView.text = java.time.LocalDate.now().toString()
-            timeTextView.text = java.time.LocalTime.now().toString()
         }
     }
 
@@ -80,12 +76,8 @@ class ChatAdapter(private var messages: List<Message> = mutableListOf()) : Recyc
         @androidx.annotation.RequiresApi(Build.VERSION_CODES.O)
         fun bind(message: Message) {
             val contentTextView: android.widget.TextView = itemView.findViewById(R.id.text_gchat_message_me)
-            val dateTextView: android.widget.TextView = itemView.findViewById(R.id.text_gchat_date_me)
-            val timeTextView: android.widget.TextView = itemView.findViewById(R.id.text_gchat_timestamp_me)
 
             contentTextView.text = message.content
-            dateTextView.text = java.time.LocalDate.now().toString()
-            timeTextView.text = java.time.LocalTime.now().toString()
         }
     }
 }

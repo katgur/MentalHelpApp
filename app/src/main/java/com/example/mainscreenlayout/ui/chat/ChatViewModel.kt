@@ -2,6 +2,7 @@ package com.example.mainscreenlayout.ui.chat
 
 import android.app.Application
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
@@ -28,12 +29,20 @@ class ChatViewModel(private val exerciseRepository: ExerciseRepository, applicat
         exerciseRepository.observeCommands(owner, observer)
     }
 
+    fun observeEnterMode(owner: LifecycleOwner, observer: Observer<Boolean>) {
+        exerciseRepository.enterMode.observe(owner, observer)
+    }
+
     fun processCommand(command: String) {
         messageRepository.addMessage(Message(command, "me", 0))
         when (command) {
             "Эффективность" -> exerciseRepository.addEfficiencyStep()
             "Время" -> exerciseRepository.addDurationStep()
             "Далее" -> exerciseRepository.addNextStep()
+            "Рекомендации" -> exerciseRepository.addRecommendation()
+            "Скажи что-нибудь" -> exerciseRepository.addQuote()
+            "Помощь" -> exerciseRepository.addHelp()
+            "Расскажи о панике" -> exerciseRepository.addHelp()
         }
     }
 

@@ -3,31 +3,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.record.RecordFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.record.RecordFragment"
+    android:background="@color/beige">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/record_desc_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Тут должно быть описание" />
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/rounded_rectangle"
+            android:layout_marginVertical="5dp">
 
-        <Button
-            android:id="@+id/record_save_btn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="Сохранить"
-            android:enabled="false"/>
+            <ImageButton
+                android:id="@+id/record_save_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_check_24"
+                android:enabled="false"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                app:tint="@color/primaryDarkColor"
+                android:layout_weight="33"/>
 
-        <Button
-            android:id="@+id/record_delete_btn"
-            android:layout_width="200dp"
+            <ImageButton
+                android:id="@+id/record_like_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_favorite_24"
+                android:enabled="false"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                app:tint="@color/primaryDarkColor"
+                android:layout_weight="33"/>
+
+            <ImageButton
+                android:id="@+id/record_delete_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_delete_24"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                app:tint="@color/primaryDarkColor"
+                app:layout_constraintStart_toEndOf="@id/record_like_btn"
+                android:layout_weight="33"/>
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Удалить"/>
+            android:layout_margin="20dp"
+            app:cardCornerRadius="@dimen/card_view_corner_radius"
+            app:cardElevation="0dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/record_desc_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Тут должно быть описание"
+                style="@style/TextViewDefault"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/record_recycler"

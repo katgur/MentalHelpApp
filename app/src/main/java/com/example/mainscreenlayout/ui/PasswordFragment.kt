@@ -8,22 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.ui.nick.NicknameViewModel
 import com.example.mainscreenlayout.ui.question.QuestionActivity
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PasswordFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PasswordFragment : Fragment() {
 
     private val viewModel : NicknameViewModel by viewModels()
@@ -31,7 +22,7 @@ class PasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val okButton = view.findViewById<Button>(R.id.password_ok_btn)
+        val okButton = view.findViewById<ImageButton>(R.id.password_ok_btn)
         val password = view.findViewById<EditText>(R.id.password_et)
 
         okButton.setOnClickListener {

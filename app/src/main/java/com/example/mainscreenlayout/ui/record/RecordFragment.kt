@@ -41,9 +41,6 @@ class RecordFragment : Fragment() {
             requireActivity().finish()
         }
 
-        //todo catch exc
-        binding.recordDescText.text = viewModel.getDescription(requireContext())
-
         val record = viewModel.getRecord(requireContext())
         if (record == null) {
             requireActivity().finish()
@@ -52,17 +49,20 @@ class RecordFragment : Fragment() {
         binding.recordRecycler.layoutManager = layoutManager
         binding.recordRecycler.adapter = adapter
 
-        adapter.onLongItemClick = { holder, _ ->
-            holder.makeEditable()
+        adapter.onLongItemClick = {
             binding.recordSaveBtn.isEnabled = true
         }
 
-        //todo record is not replaced
+        binding.recordDescText.text = viewModel.getDescription(record)
+
         binding.recordSaveBtn.setOnClickListener {
             viewModel.replaceRecord(requireContext(), adapter.getRecord())
         }
 
-        //todo refresh history after deleting
+        binding.recordLikeBtn.setOnClickListener {
+            viewModel.addToFavourites(requireContext(), record)
+        }
+
         binding.recordDeleteBtn.setOnClickListener {
             viewModel.deleteRecord(requireContext(), adapter.getRecord())
             requireActivity().finish()

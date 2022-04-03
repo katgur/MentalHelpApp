@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#1a237e</color>
-    <color name="primaryLightColor">#534bae</color>
-    <color name="primaryDarkColor">#000051</color>
-    <color name="secondaryColor">#e64a19</color>
-    <color name="secondaryLightColor">#ff7d47</color>
-    <color name="secondaryDarkColor">#ac0800</color>
+    <color name="primaryColor">#3e2723</color>
+    <color name="primaryLightColor">#6a4f4b</color>
+    <color name="primaryDarkColor">#1b0000</color>
+    <color name="secondaryColor">#558b2f</color>
+    <color name="secondaryLightColor">#85bb5c</color>
+    <color name="secondaryDarkColor">#255d00</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="beige">#f2e6d8</color>
+    <color name="orange">#8b5a2f</color>
+    <color name="red">#8b2f2f</color>
+    <color name="blue">#2f328b</color>
+    <color name="light_blue">#2f5f8b</color>
+    <color name="pink">#8b2f83</color>
+    <color name="light_pink">#bb5ca3</color>
+    <color name="violet">#5d2f8b</color>
+    <color name="yellow">#8b8b2f</color>
 
-    <color name="primaryColor2">#3e2723</color>
-    <color name="primaryLightColor2">#6a4f4b</color>
-    <color name="primaryDarkColor2">#1b0000</color>
-    <color name="secondaryColor2">#558b2f</color>
-    <color name="secondaryLightColor2">#85bb5c</color>
-    <color name="secondaryDarkColor2">#255d00</color>
+    <color name="depressed">@color/orange</color>
+    <color name="anxious">@color/secondaryColor</color>
+    <color name="stress">@color/red</color>
 </resources>

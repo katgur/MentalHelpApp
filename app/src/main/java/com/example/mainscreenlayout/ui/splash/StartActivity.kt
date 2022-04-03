@@ -16,13 +16,12 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        //todo
-//        val mode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("theme", false)
-//        if (mode) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//        } else {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        }
+        val mode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("theme", false)
+        if (mode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
 
         loadSplashFragment()
     }

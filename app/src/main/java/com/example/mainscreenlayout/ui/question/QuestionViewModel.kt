@@ -2,6 +2,7 @@ package com.example.mainscreenlayout.ui.question
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
@@ -32,7 +34,7 @@ class QuestionViewModel : ViewModel() {
         questions.value?.get(it)
     }
 
-    var isUpdated : HistoryItem? = null
+    var isUpdated : String? = null
 
     init {
         answers.addAll(listOf("", "", "", ""))
@@ -51,12 +53,10 @@ class QuestionViewModel : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun hasAnswersToday(activity: Activity) : Boolean {
-        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE) ?: return false
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(activity)
         val last = sharedPref.getLong("last", -1)
-        val start = LocalDate.now().atTime(0, 0, 0).toEpochSecond(ZoneOffset.UTC)
-        val end = LocalDate.now().atTime(23, 59, 59).toEpochSecond(ZoneOffset.UTC)
-        if (last in start..end) {
-            return true
+        if (last != -1L) {
+            return last == LocalDate.now().toEpochDay()
         }
         return false
     }
@@ -77,15 +77,15 @@ class QuestionViewModel : ViewModel() {
 
     fun saveAnswers(activity: Activity) {
         if (isUpdated == null) {
-            val answer = Answer(answers.subList(0, 2), levels[0], levels[1], levels[2], answers[3])
+            val answer = Answer(answers.subList(0, 3), levels[1], levels[0], levels[2], answers[3])
             PersonalDatabase.getInstance(activity).dao().addAnswer(answer)
 
-            val historyItem = HistoryItem(null, answer.id, "Вы прошли опросник эмоционального состояния", LocalDateTime.now().toEpochSecond(
-                ZoneOffset.UTC))
+            val historyItem = HistoryItem(null, answer.id, "Вы прошли опросник эмоционального состояния",
+                LocalDateTime.now().atZone(ZoneId.of("Africa/Addis_Ababa")).toEpochSecond())
             PersonalDatabase.getInstance(activity).dao().addHistoryItem(historyItem)
 
-            val now = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
-            val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+            val now = LocalDate.now().toEpochDay()
+            val sharedPref = PreferenceManager.getDefaultSharedPreferences(activity)
             with (sharedPref.edit()) {
                 putLong("last", now)
                 apply()
@@ -93,7 +93,7 @@ class QuestionViewModel : ViewModel() {
 
             GamificationSystem.updatePoints(activity)
         } else {
-            val answer = isUpdated!!.answer_id?.let { Answer(answers, 0, 0, 0, "", it) }
+            val answer = isUpdated?.let { Answer(answers.subList(0, 3), levels[0], levels[1], levels[2], answers[3], it) }
             if (answer != null) {
                 PersonalDatabase.getInstance(activity).dao().updateAnswer(answer)
             }

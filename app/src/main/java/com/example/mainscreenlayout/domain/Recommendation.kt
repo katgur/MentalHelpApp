@@ -17,6 +17,10 @@ class Recommendation {
         exercisesPaths.postValue(listOf())
     }
 
+    fun getRecommended(): List<MarkableItem> {
+        return recommended.value!!
+    }
+
     fun observeRecommended(owner: LifecycleOwner, observer: Observer<List<MarkableItem>>, context : Context) {
         recommended.observe(owner, observer)
         recommended.addSource(getRecommended(context)) {
@@ -29,7 +33,7 @@ class Recommendation {
         val res = MutableLiveData<Any>()
         val value = arrayListOf<MarkableItem>()
 
-        val lastAnswer = roomRepository.getLastAnswer(context)
+        val lastAnswer = roomRepository.getLastAnswer(context) ?: return res
         val packName = when (lastAnswer.second.problem) {
             "Прокрастинация" -> "procrastination"
             "Тревога" -> "anxiety"

@@ -12,7 +12,7 @@ import com.example.mainscreenlayout.domain.MarkedItem
 import com.example.mainscreenlayout.utils.JsonConverters
 import com.example.mainscreenlayout.domain.Record
 
-@Database(entities=[Record::class, HistoryItem::class, MarkedItem::class, Answer::class], version=7)
+@Database(entities=[Record::class, HistoryItem::class, MarkedItem::class, Answer::class], version=1)
 @TypeConverters(JsonConverters::class)
 abstract class PersonalDatabase : RoomDatabase() {
 

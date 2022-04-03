@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
 
-class MarketAdapter(private val items : ArrayList<Int> = arrayListOf()) : RecyclerView.Adapter<MarketAdapter.MarketItemHolder>() {
+class MarketAdapter(private val items : HashSet<Int> = hashSetOf()) : RecyclerView.Adapter<MarketAdapter.MarketItemHolder>() {
 
     var onItemClick: ((Pair<Int, Int>) -> Unit)? = null
     var onDeleteItemButtonClick: ((Pair<Int, Int>) -> Unit)? = null
@@ -25,13 +26,13 @@ class MarketAdapter(private val items : ArrayList<Int> = arrayListOf()) : Recycl
     }
 
     override fun onBindViewHolder(holder: MarketAdapter.MarketItemHolder, position: Int) {
-        val id = items[position]
+        val id = ArrayList(items)[position]
         holder.bind(id, position)
     }
 
     override fun getItemCount(): Int = items.size
 
-    fun addItems(items : List<Int>) {
+    fun addItems(items : HashSet<Int>) {
         this.items.addAll(items)
         notifyDataSetChanged()
     }
@@ -44,7 +45,7 @@ class MarketAdapter(private val items : ArrayList<Int> = arrayListOf()) : Recycl
     inner class MarketItemHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         private val image = itemView.findViewById<ImageView>(R.id.recycler_market_iv)
-        private val deleteBtn = itemView.findViewById<Button>(R.id.recycler_market_delete_btn)
+        private val deleteBtn = itemView.findViewById<ImageButton>(R.id.recycler_market_delete_btn)
 
         fun bind(img: Int, position: Int) {
             if (selected == position) {
