@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout.notification
+package com.example.mainscreenlayout.domain.notification
 
 import android.app.*
 import android.content.Context

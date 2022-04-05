@@ -1,25 +1,21 @@
 package com.example.mainscreenlayout.ui.question
 
 import android.app.Activity
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
-import com.example.mainscreenlayout.domain.Answer
+import com.example.mainscreenlayout.model.Answer
 import com.example.mainscreenlayout.domain.GamificationSystem
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.model.FirestoreRepository
-import com.example.mainscreenlayout.domain.Question
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.model.HistoryItem
+import com.example.mainscreenlayout.data.FirestoreRepository
+import com.example.mainscreenlayout.model.Question
+import com.example.mainscreenlayout.data.PersonalDatabase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 class QuestionViewModel : ViewModel() {

@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout.notification
+package com.example.mainscreenlayout.domain.notification
 
 import android.content.BroadcastReceiver
 import android.content.Context

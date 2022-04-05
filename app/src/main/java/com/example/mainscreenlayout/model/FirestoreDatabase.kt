@@ -1,16 +1,14 @@
-package com.example.mainscreenlayout.model
+package com.example.mainscreenlayout.data
 
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.mainscreenlayout.domain.MarkableItem
-import com.example.mainscreenlayout.domain.Question
+import com.example.mainscreenlayout.model.MarkableItem
+import com.example.mainscreenlayout.model.Question
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -27,7 +25,7 @@ object FirestoreDatabase {
         return this
     }
 
-    fun alternativeGet(query : String) : Task<DocumentSnapshot> {
+    fun alternativeGet(query : String): Task<DocumentSnapshot> {
         val parts = query.split("/")
         val doc = Firebase.firestore.collection(parts[0]).document(parts[1])
         return doc.get()

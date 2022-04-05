@@ -1,26 +1,21 @@
 package com.example.mainscreenlayout.utils
 
-import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import androidx.security.crypto.EncryptedSharedPreferences
-import com.example.mainscreenlayout.domain.Answer
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.domain.MarkedItem
-import com.example.mainscreenlayout.domain.Record
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.model.Answer
+import com.example.mainscreenlayout.model.HistoryItem
+import com.example.mainscreenlayout.model.MarkedItem
+import com.example.mainscreenlayout.model.Record
+import com.example.mainscreenlayout.data.PersonalDatabase
 import com.google.common.reflect.TypeToken
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.io.BufferedReader
 import java.io.File
@@ -71,6 +66,7 @@ class PersonalDataManager(private val activity : Activity) {
             remove("last")
             remove("points")
             remove("level")
+            remove("current")
             apply()
         }
         try {
@@ -82,7 +78,7 @@ class PersonalDataManager(private val activity : Activity) {
                 apply()
             }
         } catch (ex: Exception) {
-
+            Log.d("PersonalDataManager.deleteData", "no password found to delete")
         }
         Toast.makeText(activity, "Данные удалены", Toast.LENGTH_LONG).show()
     }

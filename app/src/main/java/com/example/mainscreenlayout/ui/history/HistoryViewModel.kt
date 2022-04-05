@@ -5,8 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.model.HistoryItem
+import com.example.mainscreenlayout.data.PersonalDatabase
 
 class HistoryViewModel : ViewModel() {
 

@@ -1,7 +1,7 @@
-package com.example.mainscreenlayout.model
+package com.example.mainscreenlayout.data
 
 import androidx.lifecycle.LiveData
-import com.example.mainscreenlayout.domain.Question
+import com.example.mainscreenlayout.model.Question
 
 class FirestoreRepository {
 

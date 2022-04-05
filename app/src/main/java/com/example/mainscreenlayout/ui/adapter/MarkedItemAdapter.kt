@@ -7,8 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.domain.MarkedItem
+import com.example.mainscreenlayout.model.MarkedItem
 
 class MarkedItemAdapter(private val favourites : List<MarkedItem>) : RecyclerView.Adapter<MarkedItemAdapter.MarkedItemViewHolder>()  {
 
@@ -35,9 +34,9 @@ class MarkedItemAdapter(private val favourites : List<MarkedItem>) : RecyclerVie
 
         fun bind(item : MarkedItem) {
             if (item.record_id != null) {
-                image.setImageResource(R.drawable.pink_gradient)
+                image.setImageResource(R.drawable.fav_record_icon)
             } else if (item.exercise_id != null) {
-                image.setImageResource(R.drawable.secondary_light_color_gradient)
+                image.setImageResource(R.drawable.fav_execise_icon)
             }
             description.text = item.content
             date.text = ""

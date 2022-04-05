@@ -1,7 +1,7 @@
-package com.example.mainscreenlayout.model
+package com.example.mainscreenlayout.data
 
 import android.content.Context
-import com.example.mainscreenlayout.domain.Answer
+import com.example.mainscreenlayout.model.Answer
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 

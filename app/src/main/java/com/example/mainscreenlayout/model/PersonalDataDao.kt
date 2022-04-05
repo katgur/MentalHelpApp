@@ -1,10 +1,10 @@
-package com.example.mainscreenlayout.model
+package com.example.mainscreenlayout.data
 
 import androidx.room.*
-import com.example.mainscreenlayout.domain.Answer
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.domain.MarkedItem
-import com.example.mainscreenlayout.domain.Record
+import com.example.mainscreenlayout.model.Answer
+import com.example.mainscreenlayout.model.HistoryItem
+import com.example.mainscreenlayout.model.MarkedItem
+import com.example.mainscreenlayout.model.Record
 
 @Dao
 interface PersonalDataDao {

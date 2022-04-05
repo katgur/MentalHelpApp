@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout.domain
+package com.example.mainscreenlayout.model
 
 data class Message(
     val content: String,

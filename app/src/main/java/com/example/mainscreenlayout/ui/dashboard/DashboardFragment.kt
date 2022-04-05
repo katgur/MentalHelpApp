@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mainscreenlayout.adapter.MonthCalendar
 import com.example.mainscreenlayout.databinding.FragmentDashboardBinding
-import com.example.mainscreenlayout.graph.MoodGraph
+import com.example.mainscreenlayout.domain.graph.MoodGraph
 import java.time.format.DateTimeFormatter
 
 class DashboardFragment : Fragment() {

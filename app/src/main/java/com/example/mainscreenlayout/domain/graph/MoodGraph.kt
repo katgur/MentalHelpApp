@@ -1,8 +1,8 @@
-package com.example.mainscreenlayout.graph
+package com.example.mainscreenlayout.domain.graph
 
 import android.content.Context
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.domain.Answer
+import com.example.mainscreenlayout.model.Answer
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet

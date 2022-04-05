@@ -6,22 +6,22 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.domain.MarkableItem
+import com.example.mainscreenlayout.model.MarkableItem
 
-class RoundItemAdapter(private val list : ArrayList<MarkableItem> = arrayListOf()) : RecyclerView.Adapter<RoundItemAdapter.RoundListItemHolder>() {
+class RoundedRectangleItemAdapter(private val list: ArrayList<MarkableItem> = arrayListOf()) : RecyclerView.Adapter<RoundedRectangleItemAdapter.RoundedRectangleItemHolder>() {
 
     var onItemClick: ((MarkableItem) -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RoundListItemHolder {
+    ): RoundedRectangleItemHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_round_item, parent, false)
-        return RoundListItemHolder(itemView)
+            .inflate(R.layout.recycler_rounded_rectangle_item, parent, false)
+        return RoundedRectangleItemHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: RoundListItemHolder, position: Int) {
+    override fun onBindViewHolder(holder: RoundedRectangleItemHolder, position: Int) {
         val exercise = list[position]
         holder.bind(exercise, onItemClick)
     }
@@ -33,13 +33,13 @@ class RoundItemAdapter(private val list : ArrayList<MarkableItem> = arrayListOf(
         notifyDataSetChanged()
     }
 
-    class RoundListItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RoundedRectangleItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val text: TextView = itemView.findViewById(R.id.round_text)
+        private val text: TextView = itemView.findViewById(R.id.rounded_rect_text)
 
         fun bind(content: MarkableItem, onItemClick: ((MarkableItem) -> Unit)?) {
             text.text = content.name
-            text.setOnClickListener {
+            itemView.setOnClickListener {
                 onItemClick?.invoke(content)
             }
         }

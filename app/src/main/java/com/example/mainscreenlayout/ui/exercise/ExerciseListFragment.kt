@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.adapter.ExerciseAdapter
 import com.example.mainscreenlayout.databinding.ExerciseListFragmentBinding
-import com.example.mainscreenlayout.domain.MarkableItem
+import com.example.mainscreenlayout.model.MarkableItem
 import com.example.mainscreenlayout.ui.chat.ChatFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.ArrayList

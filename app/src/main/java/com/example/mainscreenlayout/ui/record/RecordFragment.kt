@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mainscreenlayout.adapter.RecordAdapter
 import com.example.mainscreenlayout.databinding.RecordFragmentBinding
-import com.example.mainscreenlayout.domain.Record
 
 class RecordFragment : Fragment() {
 

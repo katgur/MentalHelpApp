@@ -68,7 +68,9 @@ class MarketViewModel(private val context : Context) : ViewModel() {
     fun save() {
         val set = HashSet<String>()
         for (id in this.current.value!!) {
-            set.add(id.toString())
+            if (id != R.drawable.bear) {
+                set.add(id.toString())
+            }
         }
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         with (sharedPref.edit()) {

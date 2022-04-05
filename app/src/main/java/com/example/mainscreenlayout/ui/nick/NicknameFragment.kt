@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mainscreenlayout.ui.question.QuestionActivity
 import com.example.mainscreenlayout.databinding.NicknameFragmentBinding
-import com.example.mainscreenlayout.domain.HistoryItem
 
 class NicknameFragment : Fragment() {
 

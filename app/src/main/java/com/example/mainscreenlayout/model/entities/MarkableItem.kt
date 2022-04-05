@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout.domain
+package com.example.mainscreenlayout.model
 
 import android.os.Parcel
 import android.os.Parcelable

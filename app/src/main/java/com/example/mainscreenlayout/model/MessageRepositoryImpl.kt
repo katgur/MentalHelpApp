@@ -1,7 +1,7 @@
-package com.example.mainscreenlayout.model
+package com.example.mainscreenlayout.data
 
 import androidx.lifecycle.*
-import com.example.mainscreenlayout.domain.Message
+import com.example.mainscreenlayout.model.Message
 
 class MessageRepositoryImpl(private val messages: MediatorLiveData<Message> = MediatorLiveData()) {
 

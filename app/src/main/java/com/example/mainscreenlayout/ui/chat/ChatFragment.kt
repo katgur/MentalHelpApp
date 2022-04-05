@@ -2,7 +2,6 @@ package com.example.mainscreenlayout.ui.chat
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mainscreenlayout.adapter.CommandAdapter
 import com.example.mainscreenlayout.adapter.ChatAdapter
 import com.example.mainscreenlayout.databinding.ChatFragmentBinding
-import com.example.mainscreenlayout.domain.Message
-import com.example.mainscreenlayout.ui.history.HistoryViewModel
+import com.example.mainscreenlayout.model.Message
 import java.lang.IllegalStateException
 
 class ChatFragment : Fragment() {
@@ -49,17 +47,23 @@ class ChatFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //todo catch illegal state exc in require argumanets
-        try {
+        viewModel = try {
             val k = requireArguments().getString("id", "default")
-            viewModel = ViewModelProvider(this, ChatViewModelFactory(k, requireActivity().application)).get(ChatViewModel::class.java)
+            ViewModelProvider(this, ChatViewModelFactory(k, requireActivity().application, viewLifecycleOwner))[ChatViewModel::class.java]
         } catch (e : IllegalStateException) {
-            viewModel = ViewModelProvider(this, ChatViewModelFactory("default", requireActivity().application)).get(ChatViewModel::class.java)
+            ViewModelProvider(this, ChatViewModelFactory("default", requireActivity().application, viewLifecycleOwner))[ChatViewModel::class.java]
         }
         // set chat recycler view
+        chatViewManager.stackFromEnd = true
+        //chatViewManager.reverseLayout = true
         binding.recyclerChat.layoutManager = chatViewManager
         binding.recyclerChat.adapter = chatAdapter
         viewModel.observeMessages(viewLifecycleOwner, {
             chatAdapter.addItem(it)
+            binding.recyclerChat.adapter?.itemCount?.let { it1 ->
+                binding.recyclerChat.scrollToPosition(
+                    it1.minus(1))
+            }
             //chatAdapter.setItems(it)
         })
 

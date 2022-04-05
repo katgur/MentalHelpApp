@@ -7,7 +7,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.domain.MarkableItem
+import com.example.mainscreenlayout.model.MarkableItem
 
 class ExerciseAdapter(private val exercises : List<MarkableItem>) : RecyclerView.Adapter<ExerciseAdapter.ExerciseItemHolder>() {
 

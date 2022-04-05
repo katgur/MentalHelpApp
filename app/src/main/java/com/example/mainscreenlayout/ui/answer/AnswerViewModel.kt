@@ -2,8 +2,8 @@ package com.example.mainscreenlayout.ui.answer
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.model.HistoryItem
+import com.example.mainscreenlayout.data.PersonalDatabase
 
 class AnswerViewModel : ViewModel() {
 

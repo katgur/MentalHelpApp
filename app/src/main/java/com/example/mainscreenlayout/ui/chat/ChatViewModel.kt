@@ -2,20 +2,20 @@ package com.example.mainscreenlayout.ui.chat
 
 import android.app.Application
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
-import com.example.mainscreenlayout.domain.Message
-import com.example.mainscreenlayout.model.*
+import com.example.mainscreenlayout.data.MessageRepositoryImpl
+import com.example.mainscreenlayout.domain.ExerciseRepository
+import com.example.mainscreenlayout.model.Message
 
 @RequiresApi(Build.VERSION_CODES.O)
-class ChatViewModel(private val exerciseRepository: ExerciseRepository, application: Application) : AndroidViewModel(application) {
+class ChatViewModel(private val exerciseRepository: ExerciseRepository, application: Application, owner: LifecycleOwner) : AndroidViewModel(application) {
 
     private val messageRepository = MessageRepositoryImpl()
 
     init {
-        exerciseRepository.load(application.applicationContext)
+        exerciseRepository.load(application.applicationContext, owner)
     }
 
     fun observeMessages(owner: LifecycleOwner, observer: Observer<Message>) {

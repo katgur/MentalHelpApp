@@ -2,8 +2,8 @@ package com.example.mainscreenlayout.ui.exercise
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.example.mainscreenlayout.domain.MarkedItem
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.model.MarkedItem
+import com.example.mainscreenlayout.data.PersonalDatabase
 import com.example.mainscreenlayout.utils.QueryUtils
 
 class ExerciseListViewModel : ViewModel() {

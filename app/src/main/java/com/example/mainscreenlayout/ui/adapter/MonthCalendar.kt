@@ -10,12 +10,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.domain.Answer
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.model.Answer
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 @RequiresApi(Build.VERSION_CODES.O)
 class MonthCalendar(private var data : HashMap<LocalDate, Answer> = hashMapOf(), private var date : LocalDate = LocalDate.now()) : RecyclerView.Adapter<MonthCalendar.DayHolder>() {

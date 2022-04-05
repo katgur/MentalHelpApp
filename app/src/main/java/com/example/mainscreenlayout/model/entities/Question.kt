@@ -1,10 +1,7 @@
-package com.example.mainscreenlayout.domain
+package com.example.mainscreenlayout.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import java.util.ArrayList
 
 data class Question(

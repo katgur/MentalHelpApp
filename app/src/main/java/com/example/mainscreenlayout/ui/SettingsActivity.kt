@@ -1,24 +1,19 @@
 package com.example.mainscreenlayout.ui
 
-import android.Manifest
 import android.app.AlertDialog
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import androidx.security.crypto.EncryptedSharedPreferences
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.model.PersonalDatabase
-import com.example.mainscreenlayout.notification.EveryDayNotificationManager
+import com.example.mainscreenlayout.domain.notification.EveryDayNotificationManager
 import com.example.mainscreenlayout.utils.PersonalDataManager
 
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {

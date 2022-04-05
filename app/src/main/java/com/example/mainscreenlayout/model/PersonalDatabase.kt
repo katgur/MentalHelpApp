@@ -1,16 +1,15 @@
-package com.example.mainscreenlayout.model
+package com.example.mainscreenlayout.data
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.mainscreenlayout.domain.Answer
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.domain.MarkedItem
+import com.example.mainscreenlayout.model.Answer
+import com.example.mainscreenlayout.model.HistoryItem
+import com.example.mainscreenlayout.model.MarkedItem
 import com.example.mainscreenlayout.utils.JsonConverters
-import com.example.mainscreenlayout.domain.Record
+import com.example.mainscreenlayout.model.Record
 
 @Database(entities=[Record::class, HistoryItem::class, MarkedItem::class, Answer::class], version=1)
 @TypeConverters(JsonConverters::class)

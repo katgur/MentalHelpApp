@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout.model
+package com.example.mainscreenlayout.domain
 
 
 import android.content.Context
@@ -6,15 +6,14 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
-import com.example.mainscreenlayout.domain.*
+import com.example.mainscreenlayout.data.FirestoreDatabase
+import com.example.mainscreenlayout.data.PersonalDatabase
+import com.example.mainscreenlayout.model.HistoryItem
+import com.example.mainscreenlayout.model.Message
+import com.example.mainscreenlayout.model.Record
 import com.google.firebase.firestore.DocumentSnapshot
-import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalAccessor
-import kotlin.properties.Delegates
 
 class ExerciseRepository(private val id: String) {
 
@@ -24,8 +23,9 @@ class ExerciseRepository(private val id: String) {
     private val commands = MediatorLiveData<List<String>>()
     private lateinit var record : Record
     private lateinit var context : Context
+    private lateinit var owner: LifecycleOwner
 
-    private val recommendation = Recommendation()
+    private lateinit var recommendation: Recommendation
 
     val steps = source.map {
         Message(it, "bot", 0)
@@ -34,7 +34,6 @@ class ExerciseRepository(private val id: String) {
     private var isWritable = false
 
     private var step = 0
-    private var finished = false
 
     fun observeCommands(owner: LifecycleOwner, observer: Observer<List<String>>) {
         commands.observe(owner, observer)
@@ -42,7 +41,14 @@ class ExerciseRepository(private val id: String) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun onLoad() {
-        //todo convertion move to another method or class
+        loadColumns()
+        refreshCommands()
+        val intro = doc["intro"] as String
+        source.value = intro
+        enterMode.postValue(false)
+    }
+
+    private fun loadColumns() {
         val columns = LinkedHashMap<String, String>()
         val columns1 = doc["columns"]
         if (columns1 != null) {
@@ -54,10 +60,6 @@ class ExerciseRepository(private val id: String) {
             isWritable = false
         }
         record = Record(id, columns)
-        refreshCommands()
-        val intro = doc["intro"] as String
-        source.value = intro
-        enterMode.postValue(false)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -74,7 +76,7 @@ class ExerciseRepository(private val id: String) {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun load(context : Context) {
+    fun load(context: Context, owner: LifecycleOwner) {
         val promise = FirestoreDatabase.alternativeGet("exercises/$id")
         promise.addOnSuccessListener {
             doc = it
@@ -83,6 +85,8 @@ class ExerciseRepository(private val id: String) {
             Log.e("ExerciseRepository::load", "Failed to load exercise")
         }
         this.context = context
+        this.owner= owner
+        this.recommendation = Recommendation(context)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -134,16 +138,18 @@ class ExerciseRepository(private val id: String) {
     }
 
     fun addRecommendation() {
-        //todo recommendation is always empty
-        val recommended = recommendation.getRecommended()
-        if (recommended.isNotEmpty()) {
-            val index = (step - 1) % recommended.size
-            source.value = recommended[index].name!!
-            step++
-        } else {
-            source.value = "Сегодня для тебя нет рекомендаций. Возможно, ты ещё не прошёл/ла ежедневный опрос."
-        }
-        enterMode.postValue(false)
+        recommendation.observeRecommended(owner, {
+            if (it != null) {
+                if (it.isNotEmpty()) {
+                    val index = step % it.size
+                    source.value = "Рекомендую пройти упражнение ${it[index].name!!}."
+                    step++
+                } else {
+                    source.value = "Сегодня для вас нет рекомендаций. Возможно, нужно пройти ежедневный опрос."
+                }
+            }
+            enterMode.postValue(false)  
+        })
     }
 
     fun addQuote() {

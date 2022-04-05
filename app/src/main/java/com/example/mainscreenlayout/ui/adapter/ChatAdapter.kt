@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.domain.Message
+import com.example.mainscreenlayout.model.Message
 
 const val VIEW_TYPE_MESSAGE_SENT = 1
 const val VIEW_TYPE_MESSAGE_RECEIVED = 2

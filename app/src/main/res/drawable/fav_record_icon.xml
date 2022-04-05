@@ -4,5 +4,5 @@
     <gradient
         android:type="radial"
         android:gradientRadius="30dp"
-        android:startColor="@color/secondaryLightColor" />
+        android:startColor="@color/fav_record" />
 </shape>

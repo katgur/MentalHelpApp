@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.adapter.RoundedRectangleItemAdapter
 import com.example.mainscreenlayout.databinding.FragmentHomeBinding
-import com.example.mainscreenlayout.domain.MarkableItem
+import com.example.mainscreenlayout.model.MarkableItem
 import com.example.mainscreenlayout.ui.market.MarketActivity
 import com.example.mainscreenlayout.ui.chat.ChatFragment
 import com.example.mainscreenlayout.ui.exercise.ExerciseListFragment
@@ -81,8 +81,10 @@ class HomeFragment : Fragment() {
             it.id?.let { it1 -> goToExercise(it1) }
         }
         viewModel.observeRecommended(viewLifecycleOwner, {
-            recommendedAdapter.addItems(it)
-        }, requireContext())
+            if (it != null) {
+                recommendedAdapter.addItems(it)
+            }
+        })
 
         binding.recyclerRecommended.adapter = recommendedAdapter
         binding.recyclerRecommended.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

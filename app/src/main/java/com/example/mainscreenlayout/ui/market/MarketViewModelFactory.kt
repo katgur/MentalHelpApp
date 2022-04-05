@@ -3,8 +3,6 @@ package com.example.mainscreenlayout.ui.market
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mainscreenlayout.model.ExerciseRepository
-import com.example.mainscreenlayout.ui.chat.ChatViewModel
 
 class MarketViewModelFactory(val context : Context): ViewModelProvider.Factory {
 

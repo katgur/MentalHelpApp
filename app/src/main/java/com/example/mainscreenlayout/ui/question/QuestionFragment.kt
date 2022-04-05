@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.mainscreenlayout.ui.MainActivity
 import com.example.mainscreenlayout.databinding.QuestionFragmentBinding
-import com.example.mainscreenlayout.domain.Question
+import com.example.mainscreenlayout.model.Question
 
 class QuestionFragment : Fragment() {
 

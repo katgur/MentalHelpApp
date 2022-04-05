@@ -18,7 +18,11 @@
     <color name="violet">#5d2f8b</color>
     <color name="yellow">#8b8b2f</color>
 
-    <color name="depressed">@color/orange</color>
+    <color name="depressed">@color/blue</color>
     <color name="anxious">@color/secondaryColor</color>
-    <color name="stress">@color/red</color>
+    <color name="stress">@color/pink</color>
+    <color name="record">@color/secondaryDarkColor</color>
+    <color name="questions">@color/orange</color>
+    <color name="fav_exercise">@color/violet</color>
+    <color name="fav_record">@color/red</color>
 </resources>

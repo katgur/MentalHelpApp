@@ -2,8 +2,8 @@ package com.example.mainscreenlayout.ui.dashboard
 
 import android.content.Context
 import androidx.lifecycle.*
-import com.example.mainscreenlayout.domain.Answer
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.model.Answer
+import com.example.mainscreenlayout.data.PersonalDatabase
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset

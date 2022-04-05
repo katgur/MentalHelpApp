@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.databinding.AnswerFragmentBinding
-import com.example.mainscreenlayout.domain.HistoryItem
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.data.PersonalDatabase
 import com.example.mainscreenlayout.ui.question.QuestionActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.LocalDateTime

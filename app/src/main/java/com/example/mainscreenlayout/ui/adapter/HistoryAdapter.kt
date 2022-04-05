@@ -9,9 +9,8 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.domain.HistoryItem
+import com.example.mainscreenlayout.model.HistoryItem
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
@@ -47,9 +46,9 @@ class HistoryAdapter(private val history : ArrayList<HistoryItem> = arrayListOf(
 
         fun bind(item: HistoryItem) {
             if (item.answer_id != null) {
-                image.setImageResource(R.drawable.secondary_light_color_gradient)
+                image.setImageResource(R.drawable.question_icon)
             } else if (item.record_id != null) {
-                image.setImageResource(R.drawable.secondary_dark_color_gradient)
+                image.setImageResource(R.drawable.record_icon)
             }
             description.text = item.description
             date.text = LocalDateTime.ofEpochSecond(item.date, 0, ZoneOffset.ofHours(3))

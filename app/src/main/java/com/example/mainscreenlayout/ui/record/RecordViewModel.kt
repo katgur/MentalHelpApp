@@ -2,9 +2,9 @@ package com.example.mainscreenlayout.ui.record
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.example.mainscreenlayout.domain.MarkedItem
-import com.example.mainscreenlayout.domain.Record
-import com.example.mainscreenlayout.model.PersonalDatabase
+import com.example.mainscreenlayout.model.MarkedItem
+import com.example.mainscreenlayout.model.Record
+import com.example.mainscreenlayout.data.PersonalDatabase
 import com.example.mainscreenlayout.utils.QueryUtils
 
 class RecordViewModel(private val id : String) : ViewModel() {
@@ -26,8 +26,10 @@ class RecordViewModel(private val id : String) : ViewModel() {
     }
 
     fun addToFavourites(context : Context, record: Record) {
-        PersonalDatabase.getInstance(context).dao().addFavourite(MarkedItem(record.id, null,
-            "Вы добавили в избранное запись из упражнения " + QueryUtils.idToName[record.type]))
+        PersonalDatabase.getInstance(context).dao().addFavourite(
+            MarkedItem(record.id, null,
+            "Вы добавили в избранное запись из упражнения " + QueryUtils.idToName[record.type])
+        )
     }
 
 //    class Factory(private val id : Int) : ViewModelProvider.Factory {
