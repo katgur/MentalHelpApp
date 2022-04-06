@@ -1,11 +1,9 @@
-package com.example.mainscreenlayout.data
+package com.example.mainscreenlayout.model
 
+import android.app.Activity
 import android.util.Log
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.mainscreenlayout.model.MarkableItem
-import com.example.mainscreenlayout.model.Question
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -16,23 +14,14 @@ import com.google.firebase.ktx.Firebase
 object FirestoreDatabase {
 
     private val TAG: String = this.javaClass.simpleName
-    private var authorized = false
 
-    fun getInstance(context: FragmentActivity?) : FirestoreDatabase {
-        if (!authorized) {
-            auth(context)
-        }
-        return this
-    }
-
-    fun alternativeGet(query : String): Task<DocumentSnapshot> {
+    fun getTask(query : String): Task<DocumentSnapshot> {
         val parts = query.split("/")
         val doc = Firebase.firestore.collection(parts[0]).document(parts[1])
         return doc.get()
     }
 
-
-    fun get1(query: String) : LiveData<List<Question>> {
+    fun getQuestions(query: String) : LiveData<List<Question>> {
         val data = MutableLiveData<List<Question>>()
         val db = Firebase.firestore
         val parts = query.split("/")
@@ -55,7 +44,7 @@ object FirestoreDatabase {
         return data
     }
 
-    fun get(query: String) : LiveData<Any> {
+    fun getAny(query: String) : LiveData<Any> {
         val data = MutableLiveData<Any>()
         val db = Firebase.firestore
         val parts = query.split("/")
@@ -99,20 +88,15 @@ object FirestoreDatabase {
         return data
     }
 
-    private fun auth(context: FragmentActivity?) {
+    fun auth(activity: Activity) {
         val auth = Firebase.auth
-        if (context == null) {
-            Log.d(TAG, "init:contextIsNull")
-        } else {
-            auth.signInAnonymously()
-                .addOnCompleteListener(context) { task ->
-                    if (task.isSuccessful) {
-                        Log.d(TAG, "signInAnonymously:success")
-                    } else {
-                        Log.d(TAG, "signInAnonymously:failure", task.exception)
-                    }
+        auth.signInAnonymously()
+            .addOnCompleteListener(activity) { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "signInAnonymously:success")
+                } else {
+                    Log.d(TAG, "signInAnonymously:failure", task.exception)
                 }
-        }
-        authorized = true
+            }
     }
 }

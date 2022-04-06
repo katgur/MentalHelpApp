@@ -53,9 +53,9 @@ class ChatFragment : Fragment() {
         } catch (e : IllegalStateException) {
             ViewModelProvider(this, ChatViewModelFactory("default", requireActivity().application, viewLifecycleOwner))[ChatViewModel::class.java]
         }
+        
         // set chat recycler view
         chatViewManager.stackFromEnd = true
-        //chatViewManager.reverseLayout = true
         binding.recyclerChat.layoutManager = chatViewManager
         binding.recyclerChat.adapter = chatAdapter
         viewModel.observeMessages(viewLifecycleOwner, {
@@ -64,7 +64,6 @@ class ChatFragment : Fragment() {
                 binding.recyclerChat.scrollToPosition(
                     it1.minus(1))
             }
-            //chatAdapter.setItems(it)
         })
 
         viewModel.observeEnterMode(viewLifecycleOwner, {

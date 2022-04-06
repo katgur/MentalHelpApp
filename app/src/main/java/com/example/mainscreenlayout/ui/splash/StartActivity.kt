@@ -5,11 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.example.mainscreenlayout.R
+import com.example.mainscreenlayout.model.FirestoreDatabase
 
 class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
+        FirestoreDatabase.auth(this)
 
         val mode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("theme", false)
         if (mode) {

@@ -6,7 +6,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
-import com.example.mainscreenlayout.data.FirestoreDatabase
+import com.example.mainscreenlayout.model.FirestoreDatabase
 import com.example.mainscreenlayout.data.PersonalDatabase
 import com.example.mainscreenlayout.model.HistoryItem
 import com.example.mainscreenlayout.model.Message
@@ -77,7 +77,7 @@ class ExerciseRepository(private val id: String) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun load(context: Context, owner: LifecycleOwner) {
-        val promise = FirestoreDatabase.alternativeGet("exercises/$id")
+        val promise = FirestoreDatabase.getTask("exercises/$id")
         promise.addOnSuccessListener {
             doc = it
             onLoad()
