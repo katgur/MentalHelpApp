@@ -2,6 +2,7 @@ package com.example.mainscreenlayout.adapter
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,26 +38,16 @@ class MarketAdapter(private val items : HashSet<Int> = hashSetOf()) : RecyclerVi
         notifyDataSetChanged()
     }
 
-    fun setSelected(position : Int) {
-        selected = position
-        notifyDataSetChanged()
-    }
-
     inner class MarketItemHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         private val image = itemView.findViewById<ImageView>(R.id.recycler_market_iv)
         private val deleteBtn = itemView.findViewById<ImageButton>(R.id.recycler_market_delete_btn)
 
         fun bind(img: Int, position: Int) {
-            if (selected == position) {
-                image.setColorFilter(Color.MAGENTA)
-            }
-            else {
-                image.setColorFilter(Color.TRANSPARENT)
-            }
             image.setImageDrawable(AppCompatResources.getDrawable(itemView.context, img))
             image.setOnClickListener {
                 onItemClick?.invoke(Pair(img, position))
+                Log.d("aaa", "onItemClickPerformed")
             }
             deleteBtn.setOnClickListener {
                 onDeleteItemButtonClick?.invoke(Pair(img, position))

@@ -8,7 +8,6 @@ import com.example.mainscreenlayout.data.PersonalDatabase
 class FavoritesViewModel : ViewModel() {
 
     fun getFavourites(context : Context) : List<MarkedItem> {
-        //todo
         return PersonalDatabase.getInstance(context).dao().getAllFavourites()
     }
 }

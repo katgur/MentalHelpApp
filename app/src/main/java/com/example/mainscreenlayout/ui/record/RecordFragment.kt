@@ -32,7 +32,6 @@ class RecordFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //todo catch args
         val id = requireArguments().getString("id")
         if (id != null) {
             viewModel = ViewModelProvider(this, RecordViewModelFactory(id)).get(RecordViewModel::class.java)

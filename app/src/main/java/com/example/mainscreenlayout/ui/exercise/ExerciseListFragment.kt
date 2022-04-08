@@ -37,7 +37,6 @@ class ExerciseListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ExerciseListViewModel::class.java)
 
-        //todo
         val args = requireArguments()
         val exercises : ArrayList<MarkableItem>? = args.getParcelableArrayList("exercises")
         binding.exerciseListRv.layoutManager = GridLayoutManager(requireActivity(), 2)

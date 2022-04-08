@@ -47,10 +47,13 @@ class GamificationSystem(private val context : Context) {
             GamificationSystem.getInstance(context).points.postValue(Pair(points, level))
         }
 
-        fun buyItem(context: Context) {
+        fun buyItem(context: Context): Boolean {
             val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
             var points = sharedPref.getInt("points", 0)
             val level = sharedPref.getInt("level", 0)
+            if (points < ITEM_COST) {
+                return false
+            }
             points -= ITEM_COST
             with (sharedPref.edit()) {
                 putInt("points", points)
@@ -58,6 +61,7 @@ class GamificationSystem(private val context : Context) {
                 apply()
             }
             GamificationSystem.getInstance(context).points.postValue(Pair(points, level))
+            return true
         }
 
         fun removeItem(context: Context) {

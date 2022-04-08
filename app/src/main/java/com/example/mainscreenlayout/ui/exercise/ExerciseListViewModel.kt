@@ -9,7 +9,6 @@ import com.example.mainscreenlayout.utils.QueryUtils
 class ExerciseListViewModel : ViewModel() {
 
     fun markExercise(context: Context, id: String) {
-        //todo switch favourite exercise: twice click is mischoosing
         val markedItem = MarkedItem(null, id,"Вам понравилось упражнение " + QueryUtils.idToName[id])
         PersonalDatabase.getInstance(context).dao().addFavourite(markedItem)
     }

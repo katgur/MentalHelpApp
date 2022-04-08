@@ -31,8 +31,6 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //todo catch ex i require activity
-
         val historyAdapter = HistoryAdapter()
 
         historyViewModel = ViewModelProvider(this)[HistoryViewModel::class.java]

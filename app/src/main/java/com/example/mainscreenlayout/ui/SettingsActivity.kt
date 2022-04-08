@@ -1,9 +1,12 @@
 package com.example.mainscreenlayout.ui
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -11,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.domain.notification.EveryDayNotificationManager
 import com.example.mainscreenlayout.utils.PersonalDataManager
@@ -27,6 +32,9 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                 .replace(R.id.settings, SettingsFragment())
                 .commit()
         }
+
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        sharedPref.registerOnSharedPreferenceChangeListener(this)
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
@@ -93,19 +101,15 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
             }
         }
         else if (key == "password") {
-            val password = sharedPreferences.getString("password", null)
+            val password = sharedPreferences.getString("password", "")
             if (password == "") {
                 return
             }
-            val encryptedSharedPreferences = EncryptedSharedPreferences.create("password", "master", this,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM)
-            with (encryptedSharedPreferences.edit()) {
-                putString("encryptedPassword", password)
-                apply()
-            }
+            getEncryptedSharedPreferences(this).edit()
+                .putString("new_password", password)
+                .apply()
             with (sharedPreferences.edit()) {
-                putString("password", "")
+                remove("password")
                 apply()
             }
         }
@@ -117,5 +121,16 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                 notificationFactory.stopNotifications(this)
             }
         }
+    }
+
+    private fun getEncryptedSharedPreferences(activity: Activity): SharedPreferences {
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        return EncryptedSharedPreferences.create(
+            "secret_shared_prefs_file",
+            masterKeyAlias,
+            activity,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     }
 }

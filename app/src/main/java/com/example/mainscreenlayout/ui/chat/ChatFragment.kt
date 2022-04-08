@@ -46,14 +46,14 @@ class ChatFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //todo catch illegal state exc in require argumanets
+
         viewModel = try {
             val k = requireArguments().getString("id", "default")
             ViewModelProvider(this, ChatViewModelFactory(k, requireActivity().application, viewLifecycleOwner))[ChatViewModel::class.java]
         } catch (e : IllegalStateException) {
             ViewModelProvider(this, ChatViewModelFactory("default", requireActivity().application, viewLifecycleOwner))[ChatViewModel::class.java]
         }
-        
+
         // set chat recycler view
         chatViewManager.stackFromEnd = true
         binding.recyclerChat.layoutManager = chatViewManager

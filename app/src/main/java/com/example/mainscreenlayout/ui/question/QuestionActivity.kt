@@ -28,7 +28,6 @@ class QuestionActivity : AppCompatActivity() {
                 startActivity(startMainActivityIntent)
                 finish()
             } else {
-                // todo loading animation
                 viewModel.observeSelected(this, {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.question_fcv, QuestionFragment.newInstance(it))
@@ -37,7 +36,6 @@ class QuestionActivity : AppCompatActivity() {
             }
         } else {
             viewModel.isUpdated = answerId
-            // todo loading animation
             viewModel.observeSelected(this, {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.question_fcv, QuestionFragment.newInstance(it))

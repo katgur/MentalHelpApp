@@ -40,7 +40,6 @@ class AnswerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[AnswerViewModel::class.java]
 
-        //todo
         val historyId = requireArguments().get("historyId") as String
         val historyItem = PersonalDatabase.getInstance(requireContext()).dao().getHistoryItem(historyId)
 

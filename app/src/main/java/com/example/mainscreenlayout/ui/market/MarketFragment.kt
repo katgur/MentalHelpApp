@@ -20,10 +20,6 @@ class MarketFragment : Fragment() {
 
         fun newInstance() : MarketFragment {
             val instance = MarketFragment()
-//            val args = Bundle()
-//            args.putInt("points", points)
-//            args.putInt("level", level)
-//            instance.arguments = args
             return instance
         }
     }
@@ -38,20 +34,20 @@ class MarketFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, MarketViewModelFactory(requireActivity().applicationContext)).get(MarketViewModel::class.java)
-
-//        val points = requireArguments().getInt("points")
-//        val level = requireArguments().getInt("level")
+        viewModel = ViewModelProvider(this, MarketViewModelFactory(requireActivity().applicationContext, viewLifecycleOwner)).get(MarketViewModel::class.java)
 
         val adapter = MarketAdapter()
         binding.marketRv.adapter = adapter
         binding.marketRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         adapter.onItemClick = { item ->
             viewModel.setSelected(item)
+            Log.d("aaa", "setSelected f")
         }
 
         adapter.onDeleteItemButtonClick = { item ->
-            viewModel.removeCurrent(item.first)
+            viewModel.removeCurrent(item.first, requireContext())
+            Log.d("aaa", "removeCurrent f")
         }
 
         viewModel.observePoints(viewLifecycleOwner, {
@@ -61,15 +57,16 @@ class MarketFragment : Fragment() {
 
         viewModel.observeItems(viewLifecycleOwner, {
             adapter.addItems(it)
+            Log.d("aaa", "add items f")
         })
 
         viewModel.observeSelected(viewLifecycleOwner, {
-            Log.d("MarketFragment", "selected changed: " + it.first + " " + it.second)
-            viewModel.addCurrent(it.first)
+            Log.d("aaa", "selected changed: " + it.first + " " + it.second)
+            viewModel.addCurrent(it.first, requireContext())
         })
 
         viewModel.observeCurrent(viewLifecycleOwner, {
-            Log.d("MarketFragment", "current changed: " + it.joinToString(" "))
+            Log.d("aaa", "current changed: " + it.joinToString(" "))
             val layers = arrayListOf<Drawable>()
             for (id in it) {
                 AppCompatResources.getDrawable(requireContext(), id)?.let { it1 -> layers.add(it1) }
@@ -79,7 +76,8 @@ class MarketFragment : Fragment() {
         })
 
         binding.marketSelectBtn.setOnClickListener {
-            viewModel.save()
+            Log.d("aaa", "on select btn click f")
+            viewModel.save(requireContext())
             requireActivity().finish()
         }
     }

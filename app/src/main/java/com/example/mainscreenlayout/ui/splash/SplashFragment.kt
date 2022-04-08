@@ -35,11 +35,19 @@ class SplashFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[SplashViewModel::class.java]
 
+        if (viewModel.hasPassword(requireActivity())) {
+            loadPasswordFragment()
+        }
+
         val name = viewModel.getName(requireActivity())
         if (name == null) {
             binding.splashText.text = "Привет!"
             binding.root.setOnClickListener {
-                loadNicknameFragment()
+                if (viewModel.hasPassword(requireActivity())) {
+                    loadPasswordFragment()
+                } else {
+                    loadNicknameFragment()
+                }
             }
         } else {
             binding.splashText.setText("Привет, $name!")

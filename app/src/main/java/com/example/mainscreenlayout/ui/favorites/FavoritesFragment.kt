@@ -38,7 +38,6 @@ class FavoritesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
 
-        //todo catch exception
         val favourites = viewModel.getFavourites(requireContext())
         val markedItemAdapter = MarkedItemAdapter(favourites.asReversed())
         markedItemAdapter.onItemClick = {

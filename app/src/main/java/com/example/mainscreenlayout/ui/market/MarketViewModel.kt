@@ -2,13 +2,15 @@ package com.example.mainscreenlayout.ui.market
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.domain.GamificationSystem
 
-class MarketViewModel(private val context : Context) : ViewModel() {
+class MarketViewModel(context : Context, owner: LifecycleOwner) : ViewModel() {
 
     private val items = MutableLiveData<HashSet<Int>>()
 
@@ -18,12 +20,6 @@ class MarketViewModel(private val context : Context) : ViewModel() {
     init {
         loadItems(context)
         loadCurrent(context)
-
-        selected.observeForever {
-            current.value!!.add(
-                it.first
-            )
-        }
     }
 
     private fun loadItems(context : Context) {
@@ -47,6 +43,8 @@ class MarketViewModel(private val context : Context) : ViewModel() {
             }
         }
         this.current.postValue(current1)
+        Log.d("aaa", "loaded current vm " + current1.joinToString(separator=", "))
+
     }
 
     fun observePoints(owner: LifecycleOwner, observer: Observer<Pair<Int, Int>>, context: Context) {
@@ -65,9 +63,9 @@ class MarketViewModel(private val context : Context) : ViewModel() {
         current.observe(owner, observer)
     }
 
-    fun save() {
+    fun save(context: Context) {
         val set = HashSet<String>()
-        for (id in this.current.value!!) {
+        for (id in current.value!!) {
             if (id != R.drawable.bear) {
                 set.add(id.toString())
             }
@@ -77,23 +75,34 @@ class MarketViewModel(private val context : Context) : ViewModel() {
             putStringSet("current", set)
             apply()
         }
+        Log.d("aaa", "save vm " + set.joinToString(separator = ", "))
+
     }
 
     fun setSelected(selected: Pair<Int, Int>) {
+        Log.d("aaa", "set selected vm")
         this.selected.postValue(selected)
     }
 
-    fun addCurrent(id: Int) {
-        val value = current.value
-        value!!.add(id)
-        current.value = value!!
-        GamificationSystem.buyItem(context)
+    fun addCurrent(id: Int, context: Context) {
+        Log.d("aaa", "add current vm")
+        if (GamificationSystem.buyItem(context)) {
+            Log.d("aaa", "bought item vm")
+            val value = current.value
+            value!!.add(id)
+            current.value = value!!
+            GamificationSystem.buyItem(context)
+        } else {
+            Log.d("aaa", "not enoghh money vm")
+            Toast.makeText(context, "Недостаточно баллов, чтобы купить вещь.", Toast.LENGTH_LONG).show()
+        }
     }
 
-    fun removeCurrent(id: Int) {
+    fun removeCurrent(id: Int, context: Context) {
+        Log.d("aaa", "remove item vm")
         val value = current.value
         value!!.remove(id)
-        current.postValue(value!!)
+        current.value = value!!
         GamificationSystem.removeItem(context)
     }
 }

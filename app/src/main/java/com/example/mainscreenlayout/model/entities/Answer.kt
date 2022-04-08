@@ -7,7 +7,6 @@ import java.util.*
 
 @Entity(tableName = "answers")
 data class Answer(
-    //todo map answers and fields
     val answers: List<String>,
     val depressed: Int,
     val anxious: Int,

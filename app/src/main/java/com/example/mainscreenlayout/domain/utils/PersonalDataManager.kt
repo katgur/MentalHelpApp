@@ -69,17 +69,6 @@ class PersonalDataManager(private val activity : Activity) {
             remove("current")
             apply()
         }
-        try {
-            val encryptedSharedPreferences = EncryptedSharedPreferences.create("password", "master", activity,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM)
-            with (encryptedSharedPreferences.edit()) {
-                remove("encryptedPassword")
-                apply()
-            }
-        } catch (ex: Exception) {
-            Log.d("PersonalDataManager.deleteData", "no password found to delete")
-        }
         Toast.makeText(activity, "Данные удалены", Toast.LENGTH_LONG).show()
     }
     

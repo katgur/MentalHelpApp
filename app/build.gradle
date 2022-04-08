@@ -41,8 +41,7 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
-    implementation("androidx.security:security-crypto:1.0.0")
-
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     implementation 'androidx.room:room-runtime:2.4.2'

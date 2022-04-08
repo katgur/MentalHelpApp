@@ -34,7 +34,6 @@ class HomeViewModel(context : Context) : ViewModel() {
             }
         }
         val favourites = PersonalDatabase.getInstance(context).dao().getAllFavourites()
-        //todo optimize
         for (markedItem in favourites) {
             for (markableItem in result) {
                 if (markableItem.id == markedItem.exercise_id) {
