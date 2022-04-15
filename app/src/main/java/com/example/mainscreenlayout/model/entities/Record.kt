@@ -1,6 +1,5 @@
-package com.example.mainscreenlayout.model
+package com.example.mainscreenlayout.model.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -18,19 +17,22 @@ data class Record(
     @Ignore
     private val keys = ArrayList<String>(columns.keys)
     @Ignore
-    private var position = 0
+    private var position = -1
 
     @Ignore
     fun add(column : String) : Boolean {
         if (position >= keys.size) {
             return false
         }
-        val old = columns[keys[position]]
-        if (old == null) {
-            columns[keys[position]] = column
-        } else {
-            columns[keys[position]] = "$old $column"
+        columns[keys[position]] += column
+        return true
+    }
+
+    fun setStep(step: Int): Boolean {
+        if (step >= keys.size) {
+            return false
         }
+        position = step
         return true
     }
 

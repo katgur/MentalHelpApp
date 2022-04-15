@@ -121,6 +121,7 @@ class HomeFragment : Fragment() {
         navView.selectedItemId = R.id.navigation_chat
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment, ChatFragment.newInstance(id))
+            .disallowAddToBackStack()
             .commit()
     }
 
@@ -129,6 +130,7 @@ class HomeFragment : Fragment() {
         extras.putParcelableArrayList("exercises", exercises)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment, ExerciseListFragment.newInstance(extras))
+            .disallowAddToBackStack()
             .commit()
     }
 }

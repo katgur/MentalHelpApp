@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mainscreenlayout.domain.ExerciseRepository
+import com.example.mainscreenlayout.domain.Exercise
 
 class ChatViewModelFactory(val id : String,
                            private val application : Application,
@@ -15,7 +15,7 @@ class ChatViewModelFactory(val id : String,
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(ChatViewModel::class.java)) {
-            ChatViewModel(ExerciseRepository(id), application, owner) as T
+            ChatViewModel(Exercise(id), application, owner) as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")
         }

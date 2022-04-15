@@ -17,8 +17,8 @@ class EveryDayNotificationManager {
     private val CHANNEL_ID = "reminder"
     private val CHANNEL_NAME = "reminder"
     private val REQUEST_CODE = 44
-    private val HOUR = 20
-    private val MINUTE = 0
+    private val HOUR = 21
+    private val MINUTE = 30
 
     private val TAG = "EveryDayNotificationManager"
 

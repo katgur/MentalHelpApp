@@ -17,6 +17,7 @@
     <color name="light_pink">#bb5ca3</color>
     <color name="violet">#5d2f8b</color>
     <color name="yellow">#8b8b2f</color>
+    <color name="dark_grey">#333333</color>
 
     <color name="depressed">@color/blue</color>
     <color name="anxious">@color/secondaryColor</color>

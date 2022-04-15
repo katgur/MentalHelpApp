@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.history.HistoryFragment"
-    android:background="@color/beige"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="?attr/f_background">
 
-    <androidx.recyclerview.widget.RecyclerView
+
+<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

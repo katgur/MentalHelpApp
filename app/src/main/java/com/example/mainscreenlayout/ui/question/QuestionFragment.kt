@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -47,9 +48,13 @@ class QuestionFragment : Fragment() {
         }
 
         binding.questionForwardBtn.setOnClickListener {
-            if (!viewModel.nextQuestion()) {
-                viewModel.saveAnswers(requireActivity())
-                loadMainActivity()
+            if (viewModel.answerIsNotFilled()) {
+                Toast.makeText(requireContext(), "Не представлено ответа на вопрос.", Toast.LENGTH_LONG).show()
+            } else {
+                if (!viewModel.nextQuestion()) {
+                    viewModel.saveAnswers(requireActivity())
+                    loadMainActivity()
+                }
             }
         }
 
@@ -74,5 +79,6 @@ class QuestionFragment : Fragment() {
     private fun loadMainActivity() {
         val startMainActivityIntent = Intent(context, MainActivity::class.java)
         startActivity(startMainActivityIntent)
+        requireActivity().finish()
     }
 }

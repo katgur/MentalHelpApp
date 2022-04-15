@@ -45,7 +45,7 @@
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/nickname_fragment.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/question_fragment.xml" value="0.22" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/record_fragment.xml" value="0.3227848101265823" />
-        <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_calendar.xml" value="0.7333333333333334" />
+        <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_calendar.xml" value="0.1" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_command.xml" value="0.5858585858585859" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_day.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_execises.xml" value="0.1484375" />
@@ -53,14 +53,14 @@
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_exrcise.xml" value="0.14492753623188406" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_history.xml" value="0.22" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_home_item.xml" value="0.1640625" />
-        <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_market.xml" value="0.22" />
+        <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_market.xml" value="0.22402597402597402" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_message1.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_message2.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_record.xml" value="0.22" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_rectangle_home_item.xml" value="0.1585144927536232" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_round_home_item.xml" value="0.1640625" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_round_item.xml" value="0.5" />
-        <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_rounded_rectangle_item.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_rounded_rectangle_item.xml" value="0.1" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_single_layout.xml" value="0.1585144927536232" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/recycler_single_layout_home_item.xml" value="0.14492753623188406" />
         <entry key="..\:/Users/Kate/AndroidStudioProjects/MainScreenLayout/app/src/main/res/layout/settings_activity.xml" value="0.14479166666666668" />

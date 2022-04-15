@@ -101,8 +101,11 @@ class MarketViewModel(context : Context, owner: LifecycleOwner) : ViewModel() {
     fun removeCurrent(id: Int, context: Context) {
         Log.d("aaa", "remove item vm")
         val value = current.value
-        value!!.remove(id)
-        current.value = value!!
-        GamificationSystem.removeItem(context)
+        if (value!!.remove(id)) {
+            current.value = value!!
+            GamificationSystem.removeItem(context)
+        } else {
+            Toast.makeText(context, "Эта вещь не куплена.", Toast.LENGTH_LONG).show()
+        }
     }
 }

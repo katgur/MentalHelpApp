@@ -2,6 +2,7 @@ package com.example.mainscreenlayout.model
 
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
+import com.example.mainscreenlayout.model.entities.Record
 import java.util.*
 
 @Entity(tableName = "history",

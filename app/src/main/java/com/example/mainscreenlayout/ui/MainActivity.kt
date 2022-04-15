@@ -1,5 +1,6 @@
 package com.example.mainscreenlayout.ui
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.about_item -> {
-                //goToAboutActivity()
+                showAboutDialog()
                 true
             }
             R.id.logout_item -> {
@@ -62,6 +63,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToSettingsActivity() {
         startActivity(Intent(this, SettingsActivity::class.java))
+    }
+
+    private fun showAboutDialog() {
+        AlertDialog.Builder(this)
+            .setMessage("Приложение выполнено в рамках курсового проекта 3 курса студенткой Гуровой Екатериной, БПИ192.\n" +
+            "Упражнения и прочая информация взяты из книги по когнитивно-поведенческой терапии Мэттью Маккея Как победить стресс и депрессию.\n" +
+            "Графические ресурсы взяты с сайта flaticon.com.")
+            .setPositiveButton("Ок") { _,_ -> }
+            .create()
+            .show()
     }
 
     private fun logout() {

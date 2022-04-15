@@ -5,7 +5,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/beige</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondaryLightColor</item>
         <item name="colorSecondaryVariant">@color/secondaryColor</item>
@@ -13,6 +13,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="buttonface_picture">@drawable/rounded_rectangle</item>
+        <item name="command_buttonface">@drawable/command_rectangle</item>
+        <item name="f_background">@color/beige</item>
     </style>
 
     <style name="TextViewPrimary">
@@ -56,7 +59,6 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/secondaryColor</item>

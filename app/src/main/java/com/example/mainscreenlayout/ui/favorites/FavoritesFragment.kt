@@ -50,6 +50,7 @@ class FavoritesFragment : Fragment() {
                 navView.selectedItemId = R.id.navigation_chat
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.nav_host_fragment, ChatFragment.newInstance(it.exercise_id))
+                    .disallowAddToBackStack()
                     .commit()
             }
         }

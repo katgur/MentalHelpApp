@@ -9,11 +9,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
-import androidx.security.crypto.EncryptedSharedPreferences
 import com.example.mainscreenlayout.model.Answer
 import com.example.mainscreenlayout.model.HistoryItem
 import com.example.mainscreenlayout.model.MarkedItem
-import com.example.mainscreenlayout.model.Record
+import com.example.mainscreenlayout.model.entities.Record
 import com.example.mainscreenlayout.data.PersonalDatabase
 import com.google.common.reflect.TypeToken
 import com.google.gson.GsonBuilder

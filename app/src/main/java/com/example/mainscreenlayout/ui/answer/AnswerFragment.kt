@@ -7,14 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.databinding.AnswerFragmentBinding
 import com.example.mainscreenlayout.data.PersonalDatabase
+import com.example.mainscreenlayout.model.entities.Record
+import com.example.mainscreenlayout.ui.adapter.RecordAdapter
 import com.example.mainscreenlayout.ui.question.QuestionActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
 class AnswerFragment : Fragment() {
 
@@ -42,10 +42,16 @@ class AnswerFragment : Fragment() {
 
         val historyId = requireArguments().get("historyId") as String
         val historyItem = PersonalDatabase.getInstance(requireContext()).dao().getHistoryItem(historyId)
-
-        binding.answerText.text = historyItem.answer_id?.let { viewModel.getContent(requireContext(), it) }
-        binding.answerDateText.text = LocalDateTime.ofEpochSecond(historyItem.date, 0, ZoneOffset.ofHours(3)).format(
-            DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+        if (historyItem.answer_id != null) {
+            val answer = PersonalDatabase.getInstance(requireContext()).dao().getAnswer(historyItem.answer_id)
+            val adapter = RecordAdapter(Record("", linkedMapOf(
+                Pair("Тревожность", answer.anxious.toString() + " - " + answer.answers[0]),
+                Pair("Депрессивность", answer.depressed.toString() + " - " + answer.answers[1]),
+                Pair("Уровень стресса", answer.stress.toString() + " - " + answer.answers[2]),
+                Pair("Беспокоит", answer.problem)), ""))
+            binding.answerRv.adapter = adapter
+            binding.answerRv.layoutManager = LinearLayoutManager(requireContext())
+        }
 
         binding.answerEditBtn.setOnClickListener {
             val intent = Intent(requireActivity(), QuestionActivity::class.java)

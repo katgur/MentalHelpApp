@@ -5,5 +5,5 @@
         android:type="radial"
         android:gradientRadius="300dp"
         android:startColor="@color/secondaryLightColor"
-        android:endColor="@color/white" />
+        android:endColor="?attr/f_background"/>
 </shape>

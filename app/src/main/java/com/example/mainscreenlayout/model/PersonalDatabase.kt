@@ -9,7 +9,7 @@ import com.example.mainscreenlayout.model.Answer
 import com.example.mainscreenlayout.model.HistoryItem
 import com.example.mainscreenlayout.model.MarkedItem
 import com.example.mainscreenlayout.utils.JsonConverters
-import com.example.mainscreenlayout.model.Record
+import com.example.mainscreenlayout.model.entities.Record
 
 @Database(entities=[Record::class, HistoryItem::class, MarkedItem::class, Answer::class], version=1)
 @TypeConverters(JsonConverters::class)

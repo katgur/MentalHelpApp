@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.lifecycle.*
 import com.example.mainscreenlayout.model.Answer
 import com.example.mainscreenlayout.data.PersonalDatabase
+import com.example.mainscreenlayout.model.RoomRepository
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZoneOffset
 
 class DashboardViewModel : ViewModel() {
 
+    private val roomRepository = RoomRepository()
     private val date = MutableLiveData<LocalDate>()
 
     init {
@@ -29,10 +32,11 @@ class DashboardViewModel : ViewModel() {
     }
 
     fun getData(context : Context, date : LocalDate) : Map<LocalDate, Answer> {
-        val start = LocalDateTime.of(date.year, date.month, 1, 0, 0, 0).toEpochSecond(ZoneOffset.UTC)
-        val end = LocalDateTime.of(date.year, date.month, date.month.length(date.isLeapYear), 23, 59, 59).toEpochSecond(
-            ZoneOffset.UTC)
-        val answers = PersonalDatabase.getInstance(context).dao().getAnswersBetween(start, end)
+        val start = LocalDateTime.of(date.year, date.month, 1, 0, 0, 0)
+            .toEpochSecond(ZoneOffset.ofHours(3))
+        val end = LocalDateTime.of(date.year, date.month, date.month.length(date.isLeapYear), 23, 59, 59)
+            .toEpochSecond(ZoneOffset.ofHours(3))
+        val answers = roomRepository.getAnswersIn(context, start, end)
         val data = answers.entries.associate { LocalDateTime.ofEpochSecond(it.key.date, 0, ZoneOffset.UTC).toLocalDate() to it.value[0] }
         return data
     }

@@ -6,50 +6,40 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.answer.AnswerFragment"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?attr/f_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_marginHorizontal="10dp"
+        android:background="?attr/buttonface_picture"
+        android:layout_marginVertical="5dp">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/answer_edit_btn"
-            style="@style/ButtonDefault"
-            android:text="Редактировать" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:enabled="false"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_weight="50"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/answer_delete_btn"
-            android:text="Удалить"
-            style="@style/ButtonDefault"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_24"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            app:layout_constraintStart_toEndOf="@id/record_like_btn"
+            android:layout_weight="50"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/answer_date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="date"
-        android:layout_margin="100dp"
-        android:textSize="30sp"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/answer_cv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/card_view_corner_radius"
-        android:layout_centerInParent="true"
-        android:outlineAmbientShadowColor="@color/secondaryLightColor"
-        android:layout_gravity="center">
-
-        <TextView
-            android:id="@+id/answer_text"
-            style="@style/TextViewDefault"
-            android:layout_width="@dimen/main_text_layout_width"/>
-
-    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/answer_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

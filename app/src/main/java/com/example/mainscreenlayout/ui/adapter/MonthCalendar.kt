@@ -1,5 +1,6 @@
 package com.example.mainscreenlayout.adapter
 
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
 import com.example.mainscreenlayout.model.Answer
+import com.google.firebase.database.collection.LLRBNode
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)

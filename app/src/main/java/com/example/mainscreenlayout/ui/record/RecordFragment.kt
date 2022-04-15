@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mainscreenlayout.adapter.RecordAdapter
+import com.example.mainscreenlayout.ui.adapter.RecordAdapter
 import com.example.mainscreenlayout.databinding.RecordFragmentBinding
 
 class RecordFragment : Fragment() {

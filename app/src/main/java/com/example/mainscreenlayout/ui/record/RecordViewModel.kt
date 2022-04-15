@@ -3,7 +3,7 @@ package com.example.mainscreenlayout.ui.record
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.mainscreenlayout.model.MarkedItem
-import com.example.mainscreenlayout.model.Record
+import com.example.mainscreenlayout.model.entities.Record
 import com.example.mainscreenlayout.data.PersonalDatabase
 import com.example.mainscreenlayout.utils.QueryUtils
 
@@ -31,11 +31,4 @@ class RecordViewModel(private val id : String) : ViewModel() {
             "Вы добавили в избранное запись из упражнения " + QueryUtils.idToName[record.type])
         )
     }
-
-//    class Factory(private val id : Int) : ViewModelProvider.Factory {
-//
-//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//            return RecordViewModel(id) as T
-//        }
-//    }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="buttonface_picture" format="reference"/>
+    <attr name="command_buttonface" format="reference"/>
+    <attr name="f_background" format="reference" />
+</resources>

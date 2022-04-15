@@ -55,6 +55,7 @@ class DashboardFragment : Fragment() {
             val data = viewModel.getData(requireContext(), date)
             adapter.setItems(data, date)
             binding.lineChart.data = graph.getLineData(requireContext(), data, date)
+            binding.lineChart.invalidate()
         })
     }
 

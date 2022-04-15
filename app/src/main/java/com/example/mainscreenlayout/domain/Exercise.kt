@@ -6,17 +6,16 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
-import com.example.mainscreenlayout.model.FirestoreDatabase
-import com.example.mainscreenlayout.data.PersonalDatabase
-import com.example.mainscreenlayout.model.HistoryItem
-import com.example.mainscreenlayout.model.Message
-import com.example.mainscreenlayout.model.Record
+import com.example.mainscreenlayout.model.*
+import com.example.mainscreenlayout.model.entities.Record
 import com.google.firebase.firestore.DocumentSnapshot
 import java.time.LocalDateTime
 import java.time.ZoneId
 
-class ExerciseRepository(private val id: String) {
+class Exercise(private val id: String) {
 
+    private val roomRepository = RoomRepository()
+    private val repository: FirestoreRepository = FirestoreRepository()
     private lateinit var doc : DocumentSnapshot
 
     private val source = MediatorLiveData<String>()
@@ -48,6 +47,31 @@ class ExerciseRepository(private val id: String) {
         enterMode.postValue(false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun onFinished() {
+        enterMode.postValue(false)
+        commands.value = emptyList()
+        roomRepository.addRecord(context, record)
+        val historyItem = HistoryItem(record.id, null, "Пройдено упражнение " + (doc["name"].toString()),
+            LocalDateTime.now().atZone(ZoneId.of("Africa/Addis_Ababa")).toEpochSecond())
+        roomRepository.addHistoryItem(context, historyItem)
+        GamificationSystem.updatePoints(context)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun load(context: Context, owner: LifecycleOwner) {
+        val promise = repository.getExercise(id)
+        promise.addOnSuccessListener {
+            doc = it
+            onLoad()
+        }.addOnFailureListener {
+            Log.e("ExerciseRepository::load", "Failed to load exercise")
+        }
+        this.context = context
+        this.owner= owner
+        this.recommendation = Recommendation(context)
+    }
+
     private fun loadColumns() {
         val columns = LinkedHashMap<String, String>()
         val columns1 = doc["columns"]
@@ -60,33 +84,6 @@ class ExerciseRepository(private val id: String) {
             isWritable = false
         }
         record = Record(id, columns)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun onFinished() {
-        enterMode.postValue(false)
-        commands.value = emptyList()
-        PersonalDatabase.getInstance(context).dao().addRecord(record)
-        val historyItem = HistoryItem(record.id,
-            null,
-            "Пройдено упражнение " + (doc["name"].toString()),
-            LocalDateTime.now().atZone(ZoneId.of("Africa/Addis_Ababa")).toEpochSecond())
-        PersonalDatabase.getInstance(context).dao().addHistoryItem(historyItem)
-        GamificationSystem.updatePoints(context)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun load(context: Context, owner: LifecycleOwner) {
-        val promise = FirestoreDatabase.getTask("exercises/$id")
-        promise.addOnSuccessListener {
-            doc = it
-            onLoad()
-        }.addOnFailureListener {
-            Log.e("ExerciseRepository::load", "Failed to load exercise")
-        }
-        this.context = context
-        this.owner= owner
-        this.recommendation = Recommendation(context)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -129,8 +126,8 @@ class ExerciseRepository(private val id: String) {
         }
         source.value = steps[step]
         step++
-        enterMode.postValue(isWritable)
         record.next()
+        enterMode.postValue(isWritable)
     }
 
     fun addToRecord(content : String) {

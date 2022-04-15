@@ -26,7 +26,6 @@ class QuestionActivity : AppCompatActivity() {
             if (viewModel.hasAnswersToday(this)) {
                 val startMainActivityIntent = Intent(this, MainActivity::class.java)
                 startActivity(startMainActivityIntent)
-                finish()
             } else {
                 viewModel.observeSelected(this, {
                     supportFragmentManager.beginTransaction()
@@ -39,6 +38,7 @@ class QuestionActivity : AppCompatActivity() {
             viewModel.observeSelected(this, {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.question_fcv, QuestionFragment.newInstance(it))
+                    .disallowAddToBackStack()
                     .commit()
             })
         }

@@ -1,4 +1,4 @@
-package com.example.mainscreenlayout.adapter
+package com.example.mainscreenlayout.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainscreenlayout.R
-import com.example.mainscreenlayout.model.Record
+import com.example.mainscreenlayout.model.entities.Record
 
 class RecordAdapter(private val record : Record) : RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
 

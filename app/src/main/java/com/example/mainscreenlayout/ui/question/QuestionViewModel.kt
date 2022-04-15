@@ -5,12 +5,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
-import com.example.mainscreenlayout.model.Answer
 import com.example.mainscreenlayout.domain.GamificationSystem
-import com.example.mainscreenlayout.model.HistoryItem
-import com.example.mainscreenlayout.data.FirestoreRepository
-import com.example.mainscreenlayout.model.Question
 import com.example.mainscreenlayout.data.PersonalDatabase
+import com.example.mainscreenlayout.model.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -21,6 +18,7 @@ import java.time.ZoneId
 class QuestionViewModel : ViewModel() {
 
     private val repository = FirestoreRepository()
+    private val roomRepository = RoomRepository()
     private val questions = MediatorLiveData<List<Question>>()
     private val answers = ArrayList<String>()
     private val levels = ArrayList<Int>()
@@ -59,11 +57,16 @@ class QuestionViewModel : ViewModel() {
 
     fun nextQuestion() : Boolean {
         val current = index.value
-        if (current == answers.size - 1 || current == null) {
+        if (current == null || current == answers.size - 1) {
             return false
         }
         index.value = current + 1
         return true
+    }
+
+    fun answerIsNotFilled(): Boolean {
+        val current = index.value
+        return answers[current!!].isEmpty()
     }
 
     fun addAnswer(content : String, level : Int) {
@@ -74,11 +77,11 @@ class QuestionViewModel : ViewModel() {
     fun saveAnswers(activity: Activity) {
         if (isUpdated == null) {
             val answer = Answer(answers.subList(0, 3), levels[1], levels[0], levels[2], answers[3])
-            PersonalDatabase.getInstance(activity).dao().addAnswer(answer)
+            roomRepository.addAnswer(activity, answer)
 
             val historyItem = HistoryItem(null, answer.id, "Вы прошли опросник эмоционального состояния",
                 LocalDateTime.now().atZone(ZoneId.of("Africa/Addis_Ababa")).toEpochSecond())
-            PersonalDatabase.getInstance(activity).dao().addHistoryItem(historyItem)
+            roomRepository.addHistoryItem(activity, historyItem)
 
             val now = LocalDate.now().toEpochDay()
             val sharedPref = PreferenceManager.getDefaultSharedPreferences(activity)
@@ -91,7 +94,7 @@ class QuestionViewModel : ViewModel() {
         } else {
             val answer = isUpdated?.let { Answer(answers.subList(0, 3), levels[0], levels[1], levels[2], answers[3], it) }
             if (answer != null) {
-                PersonalDatabase.getInstance(activity).dao().updateAnswer(answer)
+                roomRepository.updateAnswer(activity, answer)
             }
         }
     }

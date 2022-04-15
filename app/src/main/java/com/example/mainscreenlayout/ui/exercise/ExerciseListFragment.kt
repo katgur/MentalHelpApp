@@ -51,6 +51,7 @@ class ExerciseListFragment : Fragment() {
                 navView.selectedItemId = R.id.navigation_chat
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.nav_host_fragment, ChatFragment.newInstance(it.id!!))
+                    .disallowAddToBackStack()
                     .commit()
             }
             binding.exerciseListRv.adapter = adapter

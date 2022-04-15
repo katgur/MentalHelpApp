@@ -41,6 +41,8 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.20")
+
     implementation "androidx.security:security-crypto:1.1.0-alpha03"
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 

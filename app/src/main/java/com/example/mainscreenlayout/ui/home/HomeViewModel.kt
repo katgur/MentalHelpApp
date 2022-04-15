@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.example.mainscreenlayout.domain.GamificationSystem
 import com.example.mainscreenlayout.model.MarkableItem
 import com.example.mainscreenlayout.domain.Recommendation
-import com.example.mainscreenlayout.data.FirestoreRepository
+import com.example.mainscreenlayout.model.FirestoreRepository
 import com.example.mainscreenlayout.data.PersonalDatabase
 import com.example.mainscreenlayout.utils.QueryUtils
 

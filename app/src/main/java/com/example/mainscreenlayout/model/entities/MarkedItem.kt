@@ -3,6 +3,7 @@ package com.example.mainscreenlayout.model
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.mainscreenlayout.model.entities.Record
 import java.util.*
 
 @Entity(tableName = "marked",

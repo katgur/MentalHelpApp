@@ -4,12 +4,14 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.mainscreenlayout.model.FirestoreDatabase
-import com.example.mainscreenlayout.data.RoomRepository
+import com.example.mainscreenlayout.model.FirestoreRepository
+import com.example.mainscreenlayout.model.RoomRepository
 import com.example.mainscreenlayout.model.MarkableItem
 import com.google.firebase.firestore.DocumentReference
 
 class Recommendation(context: Context) {
 
+    private val firestoreRepository = FirestoreRepository()
     private val roomRepository = RoomRepository()
     private val recommended = MediatorLiveData<List<MarkableItem>?>()
     private val exercisesPaths = MutableLiveData<List<String>>()
@@ -39,7 +41,7 @@ class Recommendation(context: Context) {
             "Депрессия" -> "depression"
             else -> "low_self_esteem"
         }
-        val pack = FirestoreDatabase.getTask("packs/$packName")
+        val pack = firestoreRepository.getPack(packName)
         pack.addOnSuccessListener { doc ->
             val exercises = (doc["content"] as List<DocumentReference>).map { reference ->
                 reference.get().addOnSuccessListener {

@@ -4,7 +4,7 @@ import androidx.room.*
 import com.example.mainscreenlayout.model.Answer
 import com.example.mainscreenlayout.model.HistoryItem
 import com.example.mainscreenlayout.model.MarkedItem
-import com.example.mainscreenlayout.model.Record
+import com.example.mainscreenlayout.model.entities.Record
 
 @Dao
 interface PersonalDataDao {
